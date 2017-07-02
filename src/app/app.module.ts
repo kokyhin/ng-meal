@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { CoreModule } from './core/core.module';
@@ -16,7 +17,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     HttpModule,
     AuthModule,
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
