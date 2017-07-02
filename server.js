@@ -15,7 +15,7 @@ var session       = require('express-session');
 var MongoStore    = require('connect-mongo')(session);
 
 // Exec ng build command on server start
-const build = spawn('ng', ['build', '--watch']);
+// const build = spawn('ng', ['build', '--watch']);
 
 var mongooseOptions = {
   "server": {
