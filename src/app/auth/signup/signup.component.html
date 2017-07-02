@@ -1,3 +1,20 @@
-<p>
-  signup works!
-</p>
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="username">Email</label>
+    <input type="email" id="email" class="form-control" formControlName="email">
+    <div *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">
+      <div *ngIf="signupForm.get('email').errors['email']">Not valid email</div>
+      <div *ngIf="!signupForm.get('email').errors['email'] && signupForm.get('email').errors['notCorporateEmail']">Please use corporate email</div>
+    </div>
+
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" class="form-control" formControlName="password">
+    <input type="password" id="passwordCheck" class="form-control" formControlName="passwordCheck">
+    <span *ngIf="!signupForm.get('passwordCheck').valid && signupForm.get('passwordCheck').touched">
+      Password did not match
+    </span>
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Login</button>
+</form>
