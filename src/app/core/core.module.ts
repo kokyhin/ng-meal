@@ -1,4 +1,3 @@
-import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './../app-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,7 +6,6 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     AppRoutingModule,
-    FormsModule
   ],
   declarations: [],
   exports: [
