@@ -5,13 +5,48 @@ const http          = require('http');
 const bodyParser    = require('body-parser');
 const dotenv        = require('dotenv').config();
 const { spawn }     = require('child_process');
-
+var mongoose        = require('mongoose');
 // Get our API routes
 const api = require('./server/routes/api');
 const app = express();
 
+//SESSION
+var session       = require('express-session');
+var MongoStore    = require('connect-mongo')(session);
+
 // Exec ng build command on server start
 const build = spawn('ng', ['build', '--watch']);
+
+var mongooseOptions = {
+  "server": {
+    "socketOptions": {
+      "autoReconnect": 1,
+      "keepAlive": 1000,
+      "connectTimeoutMS": 30000
+    }
+  },
+};
+
+mongoose.connect('mongodb://localhost/ng-meal', mongooseOptions);
+
+app.use(session({
+    secret: 'NG meal',
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({
+      db: 'ng-meal',
+      url: 'mongodb://localhost/ng-meal',
+      ttl: 12 * 60 * 60,
+      mongoOptions: {
+        "autoReconnect": 1,
+        "keepAlive": 1000,
+        "connectTimeoutMS": 30000
+      }
+    }),
+    cookie: {
+      httpOnly: false
+    }
+}));
 
 // Parsers for POST data
 app.use(bodyParser.json());
