@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "./node_modules/nodemon/bin/nodemon.js --debug server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -28,6 +28,7 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "mongoose": "^4.10.8",
+    "nodemon": "^1.11.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },

@@ -1,9 +1,14 @@
 const express = require('express');
-const router = express.Router();
+const router  = express.Router();
+const auth    = require('./auth');
 
-/* GET api listing. */
-router.get('/', (req, res) => {
-  res.send('api works');
-});
+setHeader = function (req, res, next) {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  next();
+};
+
+router.use('/auth', setHeader, auth);
 
 module.exports = router;
