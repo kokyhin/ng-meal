@@ -10,7 +10,7 @@ export class AppComponent {
 
   public options = {
     position: ['top', 'right'],
-    timeOut: 225000,
+    timeOut: 5000,
     showProgressBar: true,
     pauseOnHover: true,
     clickToClose: true,

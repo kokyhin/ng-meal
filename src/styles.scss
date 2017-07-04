@@ -36,10 +36,22 @@ app-signin, app-signup {
         }
       }
     }
+
     .img-ico {
       margin: 0 auto;
       display: block;
       margin-bottom: 70px;
+    }
+
+    .form-group {
+      position: relative;
+
+      .error-msg {
+        position: absolute;
+        right: 30px;
+        bottom: -25px;
+        color: #F44336;
+      }
     }
 
     label {
@@ -88,7 +100,7 @@ app-signin, app-signup {
       }
 
       &.ng-invalid.ng-touched {
-        border-color: red;
+        border-color: #F44336;
       }
     }
   }
