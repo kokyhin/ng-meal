@@ -1,4 +1,89 @@
 /* You can add global styles to this file, and also import other style files */
-input.ng-invalid.ng-touched {
-  border: 1px solid red;
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+app-signin, app-signup {
+  background: url('./assets/img/login-bg.jpg') center center no-repeat;
+  background-size: cover;
+  color: #fff;
+
+  .form-wrapper {
+    margin: 0 auto;
+    max-width: 450px;
+    width: 100%;
+
+    .flex-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 30px;
+
+      a {
+        color: rgba(255,255,255, 0.8);
+
+        &:hover {
+          color: #7fd344;
+          text-decoration: none;
+          transition: all 0.3s ease-out;
+        }
+      }
+    }
+    .img-ico {
+      margin: 0 auto;
+      display: block;
+      margin-bottom: 70px;
+    }
+
+    label {
+      font-weight: bold;
+      text-transform: uppercase;
+      color: rgba(255,255,255, 0.8);
+      padding-left: 30px;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      line-height: 55px;
+      display: block;
+      border-radius: 50px;
+      width: 100%;
+      background-color: transparent;
+      border: 2px solid #7fd344;
+      color: #7fd344;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: all 0.3s ease-out;
+
+      &:hover {
+        background-color: #7fd344;
+        color: #fff;
+      }
+
+      &.btn-login {
+        margin: 30px 0 80px;
+      }
+    }
+
+    .form-control {
+      border: 3px solid transparent;
+      background-color: rgba(255,255,255, 0.4);
+      height: 55px;
+      border-radius: 50px;
+      margin-bottom: 45px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 20px;
+      padding-left: 30px;
+
+      &.password {
+        margin-bottom: 25px;
+      }
+
+      &.ng-invalid.ng-touched {
+        border-color: red;
+      }
+    }
+  }
 }
