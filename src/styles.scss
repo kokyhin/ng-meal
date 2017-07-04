@@ -4,7 +4,13 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
 }
-
+.simple-notification .sn-title  {
+  font-size: 14px !important;
+  line-height: 18px !important;
+  display: flex;
+  align-items: center;
+  min-height: 50px;
+}
 app-signin, app-signup {
   background: url('./assets/img/login-bg.jpg') center center no-repeat;
   background-size: cover;

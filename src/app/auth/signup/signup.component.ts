@@ -1,3 +1,4 @@
+import { NotificationsService } from 'angular2-notifications';
 import { AuthService } from './../auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +11,10 @@ import { Component, OnInit } from '@angular/core';
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private notify: NotificationsService
+  ) { }
 
   ngOnInit() {
     this.signupForm = new FormGroup({
@@ -44,7 +48,11 @@ export class SignupComponent implements OnInit {
     console.log('request send');
     this.authService.register(this.signupForm.value).subscribe(
       (response) => console.log(response),
-      (error) => console.log(error.json().message)
+      (error) => {
+        this.notify.error(
+          error.json().message
+        );
+      }
     );
   }
 }
