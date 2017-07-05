@@ -45,14 +45,12 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('request send');
     this.authService.register(this.signupForm.value).subscribe(
-      (response) => console.log(response),
-      (error) => {
-        this.notify.error(
-          error.json().message
-        );
-      }
+      (response) => {
+        this.notify.success(response.json().message);
+        this.signupForm.reset();
+      },
+      (error) => { this.notify.error(error.json().message); }
     );
   }
 }

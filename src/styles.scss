@@ -4,6 +4,11 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
 }
+
+* {
+  outline: none 0 !important;
+}
+
 .simple-notification .sn-title  {
   font-size: 14px !important;
   line-height: 18px !important;

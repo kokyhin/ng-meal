@@ -5,19 +5,21 @@ const http          = require('http');
 const bodyParser    = require('body-parser');
 const dotenv        = require('dotenv').config();
 const { spawn }     = require('child_process');
-var mongoose        = require('mongoose');
+const passport      = require('passport');
+const mongoose      = require('mongoose');
+const LocalStrategy = require('passport-local').Strategy;
 // Get our API routes
 const api = require('./server/routes/api');
 const app = express();
 
 //SESSION
-var session       = require('express-session');
-var MongoStore    = require('connect-mongo')(session);
+const session       = require('express-session');
+const MongoStore    = require('connect-mongo')(session);
 
 // Exec ng build command on server start
 // const build = spawn('ng', ['build', '--watch']);
 
-var mongooseOptions = {
+const mongooseOptions = {
   "server": {
     "socketOptions": {
       "autoReconnect": 1,
@@ -30,23 +32,31 @@ var mongooseOptions = {
 mongoose.connect('mongodb://localhost/ng-meal', mongooseOptions);
 
 app.use(session({
-    secret: 'NG meal',
-    resave: false,
-    saveUninitialized: true,
-    store: new MongoStore({
-      db: 'ng-meal',
-      url: 'mongodb://localhost/ng-meal',
-      ttl: 12 * 60 * 60,
-      mongoOptions: {
-        "autoReconnect": 1,
-        "keepAlive": 1000,
-        "connectTimeoutMS": 30000
-      }
-    }),
-    cookie: {
-      httpOnly: false
+  secret: 'NG meal',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({
+    db: 'ng-meal',
+    url: 'mongodb://localhost/ng-meal',
+    ttl: 12 * 60 * 60,
+    mongoOptions: {
+      "autoReconnect": 1,
+      "keepAlive": 1000,
+      "connectTimeoutMS": 30000
     }
+  }),
+  cookie: {
+    httpOnly: false
+  }
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+var User = require('./server/models/user');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Parsers for POST data
 app.use(bodyParser.json());
