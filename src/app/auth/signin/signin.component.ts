@@ -27,6 +27,7 @@ export class SigninComponent implements OnInit {
     this.authService.login(this.signinForm.value).subscribe(
       (response) => {
         console.log(response.json());
+        this.authService.token = 'token';
         this.signinForm.reset();
       },
       (error) => {
