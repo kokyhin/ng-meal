@@ -26,10 +26,15 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.signinForm.value).subscribe(
       (response) => {
-        console.log(response);
+        console.log(response.json());
         this.signinForm.reset();
       },
-      (error) => { console.log(error); }
+      (error) => {
+        const message = error._body;
+        if (message === 'Unauthorized') {
+          this.notify.error('Wrong combination of username and password');
+        }
+      }
     );
     this.signinForm.reset();
   }
