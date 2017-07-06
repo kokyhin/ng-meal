@@ -10,4 +10,8 @@ export class AuthService {
   register(user: Object) {
     return this.http.post('http://localhost:3000/api/auth/register', user);
   }
+
+  login(user: Object) {
+    return this.http.post('http://localhost:3000/api/auth/login', user);
+  }
 }

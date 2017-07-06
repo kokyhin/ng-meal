@@ -1,3 +1,5 @@
+import { NotificationsService } from 'angular2-notifications';
+import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -9,7 +11,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class SigninComponent implements OnInit {
   signinForm: FormGroup;
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private notify: NotificationsService
+  ) { }
 
   ngOnInit() {
     this.signinForm = new FormGroup({
@@ -19,7 +24,13 @@ export class SigninComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signinForm.value);
+    this.authService.login(this.signinForm.value).subscribe(
+      (response) => {
+        console.log(response);
+        this.signinForm.reset();
+      },
+      (error) => { console.log(error); }
+    );
     this.signinForm.reset();
   }
 }

@@ -20,6 +20,7 @@ router.route('/register').post(function(req,res,next) {
     User.register(new User({
       username: mail.split('@')[0],
       email: mail,
+      password: req.body.password,
     }), req.body.password, function(err, newUser){
       if (err) {return res.status(400).send({message: err.message});}
       return res.status(200).send({message: 'User was successfully registered'});
@@ -28,7 +29,12 @@ router.route('/register').post(function(req,res,next) {
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
-  res.redirect('/');
+  User.findOne({'_id': req.user._id}, function(err, user) {
+    if (err) {
+      return res.status(400).send({message: err.message});
+    }
+    res.send(user);
+  });
 });
 
 router.get('/logout', function(req, res) {

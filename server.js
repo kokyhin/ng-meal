@@ -50,13 +50,26 @@ app.use(session({
   }
 }));
 
-app.use(passport.initialize());
-app.use(passport.session());
-
 var User = require('./server/models/user');
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy(function(username, password, done) {
+  User.findOne({$or:[{ username: username }, {email: username}] }, function(err, user) {
+    if (err) return done(err);
+    if (!user) return done(null, false, { message: 'Incorrect username.' });
+    user.comparePassword(password, function(err, isMatch) {
+      if (isMatch) {
+        return done(null, user);
+      } else {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+    });
+  });
+}));
+
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Parsers for POST data
 app.use(bodyParser.json());
