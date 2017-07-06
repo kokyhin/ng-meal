@@ -42,4 +42,12 @@ router.get('/logout', function(req, res) {
   res.status(200).send({message: 'Logged out'});
 });
 
+router.get('/is-auth', function(req, res){
+  if (req.isAuthenticated()) {
+    return res.status(200).send('isAuth');
+  } else {
+    return res.status(401).send('Unauthorized');
+  }
+});
+
 module.exports = router;

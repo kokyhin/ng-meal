@@ -2,6 +2,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -13,7 +14,8 @@ export class SigninComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private notify: NotificationsService
+    private notify: NotificationsService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -26,9 +28,9 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.signinForm.value).subscribe(
       (response) => {
-        console.log(response.json());
-        this.authService.token = 'token';
+        this.authService.token = true;
         this.signinForm.reset();
+        this.router.navigate(['/']);
       },
       (error) => {
         const message = error._body;
