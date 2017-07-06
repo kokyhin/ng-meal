@@ -42,6 +42,10 @@ router.get('/logout', function(req, res) {
   res.status(200).send({message: 'Logged out'});
 });
 
+router.post('/reset-password', function(req, res){
+  console.log(req.body.email);
+});
+
 router.get('/is-auth', function(req, res){
   if (req.isAuthenticated()) {
     return res.status(200).send('isAuth');

@@ -30,4 +30,8 @@ export class AuthService {
     );
   }
 
+  reset(email: Object) {
+    return this.http.post('http://localhost:3000/api/auth//reset-password', email);
+  }
+
 }

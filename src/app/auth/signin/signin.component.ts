@@ -28,7 +28,6 @@ export class SigninComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.signinForm.value).subscribe(
       (response) => {
-        this.authService.token = true;
         this.signinForm.reset();
         this.router.navigate(['/']);
       },

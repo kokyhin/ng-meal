@@ -1,0 +1,13 @@
+<div class="form-wrapper">
+  <img class="img-ico" src="../../../assets/img/knifeAndFork.png" alt="knife and fork">
+  <form [formGroup]="resetForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" id="email" class="form-control" formControlName="email">
+      <span class="error-msg" *ngIf="!resetForm.get('email').valid && resetForm.get('email').touched && resetForm.get('email').errors['notCorporateEmail']">
+        Please provide corporate email
+      </span>
+    </div>
+    <button class="btn btn-login" type="submit" [disabled]="!resetForm.valid">Reset password</button>
+  </form>
+</div>
