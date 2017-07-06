@@ -5,8 +5,6 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class AuthService {
-  token: Boolean;
-
   constructor(
     private http: Http,
     private router: Router
@@ -21,28 +19,12 @@ export class AuthService {
   }
 
   isAuth() {
-    if (!this.token) {
-      this.http.get('http://localhost:3000/api/auth/is-auth').subscribe(
-        (response) => {
-          console.log('Auth');
-          this.token = true;
-          return true;
-        },
-        (error) => {
-          console.log('not');
-          this.token = false;
-          return false;
-        }
-      );
-    } else {
-      return this.token !== false;
-    }
+    return this.http.get('http://localhost:3000/api/auth/is-auth');
   }
 
   logout() {
     this.http.get('http://localhost:3000/api/auth/logout').subscribe(
       (response) => {
-        this.token = null;
         this.router.navigate(['/signin']);
       }
     );
