@@ -1,0 +1,15 @@
+<div class="form-wrapper">
+  <img class="img-ico" src="../../../assets/img/knifeAndFork.png" alt="knife and fork">
+  <form [formGroup]="resetPassForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="password">New password</label>
+      <input type="password" id="password" class="form-control" formControlName="password">
+      <label for="passwordCheck">Password Repeat</label>
+      <input type="password" id="passwordCheck" class="form-control" formControlName="passwordCheck">
+      <span class="error-msg" *ngIf="!resetPassForm.get('passwordCheck').valid && resetPassForm.get('passwordCheck').touched">
+        Password did not match
+      </span>
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="!resetPassForm.valid">Update</button>
+  </form>
+</div>
