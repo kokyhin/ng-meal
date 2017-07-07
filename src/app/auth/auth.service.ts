@@ -11,19 +11,19 @@ export class AuthService {
   ) { }
 
   register(user: Object) {
-    return this.http.post('http://localhost:3000/api/auth/register', user);
+    return this.http.post('/api/auth/register', user);
   }
 
   login(user: Object) {
-    return this.http.post('http://localhost:3000/api/auth/login', user);
+    return this.http.post('/api/auth/login', user);
   }
 
   isAuth() {
-    return this.http.get('http://localhost:3000/api/auth/is-auth');
+    return this.http.get('/api/auth/is-auth');
   }
 
   logout() {
-    this.http.get('http://localhost:3000/api/auth/logout').subscribe(
+    this.http.get('/api/auth/logout').subscribe(
       (response) => {
         this.router.navigate(['/signin']);
       }
@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   reset(email: Object) {
-    return this.http.post('http://localhost:3000/api/auth//reset-password', email);
+    return this.http.post('/api/auth//reset-password', email);
   }
 
 }
