@@ -1,3 +1,4 @@
+import { NotificationsService } from 'angular2-notifications';
 import { AuthService } from './../auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,8 @@ export class ForgotComponent implements OnInit {
   resetForm: FormGroup;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private notify: NotificationsService
   ) { }
 
   ngOnInit() {
@@ -32,8 +34,11 @@ export class ForgotComponent implements OnInit {
 
   onSubmit() {
     this.authService.reset(this.resetForm.value).subscribe(
-      (response) => {console.log(response); },
-      (error) => {console.log(error); }
+      (response) => {
+        this.notify.success(response.json().message);
+        this.resetForm.reset();
+      },
+      (error) => { this.notify.error(error.json().message); }
     );
   }
 }

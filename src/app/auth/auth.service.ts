@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   reset(email: Object) {
-    return this.http.post('/api/auth//reset-password', email);
+    return this.http.post('/api/auth/reset-password', email);
   }
 
 }

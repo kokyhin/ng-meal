@@ -3,6 +3,14 @@ const router   = express.Router();
 const mongoose = require('mongoose');
 const User     = require('../models/user')
 const passport = require('passport');
+const crypto   = require('crypto');
+const nodemailer = require('nodemailer');
+
+generateRandomToken = function(len) {
+  return crypto.randomBytes(Math.ceil(len/2))
+    .toString('hex') // convert to hexadecimal format
+    .slice(0,len);   // return required number of characters
+};
 
 router.route('/register').post(function(req,res,next) {
   const mail = req.body.email;
@@ -43,7 +51,37 @@ router.get('/logout', function(req, res) {
 });
 
 router.post('/reset-password', function(req, res){
-  console.log(req.body.email);
+  User.findOne({ email: req.body.email}, function(err, user) {
+    if (!user) { return res.status(404).send({message: 'User not found'}); }
+    if(err) { return res.status(400).send({message: err.message}); }
+    user.resetPasswordToken = generateRandomToken(20);
+    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    user.save(function(err) {
+      if(err) { return res.status(400).send({message: err.message}); }
+
+      let resetTokenLink = process.env.APP_URL + 'reset-password/?reset=' + user.resetPasswordToken;
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.MAIL_ACC,
+          pass: process.env.MAIL_PASS
+        }
+      });
+
+      let mailOptions = {
+        from: '"FusionWorks Meal 🍔" <meal@fusionworks.md>',
+        to: user.email,
+        subject: 'Meal password reset',
+        text: `Please folow this URL + ${resetTokenLink} to reset your password`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        res.status(200).send({message: `On your email: ${req.body.email} was send reset password instruction`});
+        if (error) {return res.status(400).send({message: error}); }
+      });
+
+    });
+  });
 });
 
 router.get('/is-auth', function(req, res){
