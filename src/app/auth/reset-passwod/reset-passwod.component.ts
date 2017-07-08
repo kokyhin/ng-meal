@@ -1,3 +1,4 @@
+import { PreloaderService } from './../../core/preloader/preloader.service';
 import { Response } from '@angular/http';
 import { NotificationsService } from 'angular2-notifications';
 import { AuthService } from './../auth.service';
@@ -18,7 +19,8 @@ export class ResetPasswodComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private notify: NotificationsService
+    private notify: NotificationsService,
+    private preload: PreloaderService
   ) { }
 
   ngOnInit() {
@@ -49,12 +51,17 @@ export class ResetPasswodComponent implements OnInit {
       password: this.resetPassForm.get('password').value,
       token: this.token,
     };
+    this.preload.state.next(true);
     this.authService.passwordUpdate(obj).subscribe(
       (response: Response) => {
         this.notify.success(response.json().message);
         this.router.navigate(['/signin']);
+        this.preload.state.next(false);
       },
-      (err) => { this.notify.error(err.json().message); }
+      (err) => {
+        this.notify.error(err.json().message);
+        this.preload.state.next(false);
+      }
     );
   }
 

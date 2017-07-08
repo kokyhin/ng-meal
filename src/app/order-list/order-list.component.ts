@@ -26,7 +26,7 @@ export class OrderListComponent implements OnInit {
     const that = this;
     setTimeout(function() {
       that.preload.state.next(false);
-    }, 1000);
+    }, 5000);
   }
 
 }

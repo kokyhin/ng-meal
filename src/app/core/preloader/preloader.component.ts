@@ -1,5 +1,5 @@
 import { PreloaderService } from './preloader.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-preloader',
@@ -7,29 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./preloader.component.scss']
 })
 export class PreloaderComponent implements OnInit {
+  @HostBinding('class.active') someField: Boolean = false;
 
   constructor(
-    private preload: PreloaderService
+    private preload: PreloaderService,
+    private cdRef: ChangeDetectorRef
   ) { }
+
 
   ngOnInit() {
     this.preload.checkState().subscribe(
       (state) => {
         if (state) {
-          this.preloaderShow();
+          this.someField = true;
         } else {
-          this.preloaderHide();
+          this.someField = false;
         }
       }
     );
   }
-
-  preloaderShow() {
-    console.log('preloader showing');
-  }
-
-  preloaderHide() {
-    console.log('Preloader hide');
-  }
-
 }
