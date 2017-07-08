@@ -5,7 +5,6 @@ import { CoreModule } from './core/core.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { OrderListComponent } from './order-list/order-list.component';
@@ -23,7 +22,6 @@ import { OrderListComponent } from './order-list/order-list.component';
     CoreModule,
     SharedModule,
     BrowserAnimationsModule,
-    SimpleNotificationsModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
