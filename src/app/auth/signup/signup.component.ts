@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Response } from '@angular/http';
 import { NotificationsService } from 'angular2-notifications';
 import { AuthService } from './../auth.service';
@@ -14,7 +15,8 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private notify: NotificationsService
+    private notify: NotificationsService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -50,6 +52,7 @@ export class SignupComponent implements OnInit {
       (response: Response) => {
         this.notify.success(response.json().message);
         this.signupForm.reset();
+        this.router.navigate(['/signin']);
       },
       (error) => { this.notify.error(error.json().message); }
     );
