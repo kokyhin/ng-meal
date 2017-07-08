@@ -1,3 +1,4 @@
+import { PreloaderService } from './../../core/preloader/preloader.service';
 import { Response } from '@angular/http';
 import { NotificationsService } from 'angular2-notifications';
 import { AuthService } from './../auth.service';
@@ -14,7 +15,8 @@ export class ForgotComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private notify: NotificationsService
+    private notify: NotificationsService,
+    private preload: PreloaderService
   ) { }
 
   ngOnInit() {
@@ -34,12 +36,17 @@ export class ForgotComponent implements OnInit {
   }
 
   onSubmit() {
+    this.preload.state.next(true);
     this.authService.reset(this.resetForm.value).subscribe(
       (response: Response) => {
         this.notify.success(response.json().message);
         this.resetForm.reset();
+        this.preload.state.next(false);
       },
-      (error) => { this.notify.error(error.json().message); }
+      (error) => {
+        this.notify.error(error.json().message);
+        this.preload.state.next(false);
+      }
     );
   }
 }
