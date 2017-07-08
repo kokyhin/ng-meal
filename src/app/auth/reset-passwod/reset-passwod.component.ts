@@ -1,3 +1,7 @@
+import { Response } from '@angular/http';
+import { NotificationsService } from 'angular2-notifications';
+import { AuthService } from './../auth.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,14 +12,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResetPasswodComponent implements OnInit {
   resetPassForm: FormGroup;
+  token: string;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService,
+    private notify: NotificationsService
+  ) { }
 
   ngOnInit() {
     this.resetPassForm = new FormGroup({
       'password': new FormControl(null, [Validators.required]),
       'passwordCheck': new FormControl(null, [Validators.required, this.checkPassword.bind(this)], )
     });
+
+    this.route.queryParams.subscribe(
+      (params: Params) => {
+        this.token = params['reset'];
+      }
+    );
   }
 
   checkPassword(control: FormControl): {[s: string]: boolean} {
@@ -28,6 +44,18 @@ export class ResetPasswodComponent implements OnInit {
     return null;
   }
 
-  onSubmit() {}
+  onSubmit() {
+    const obj = {
+      password: this.resetPassForm.get('password').value,
+      token: this.token,
+    };
+    this.authService.passwordUpdate(obj).subscribe(
+      (response: Response) => {
+        this.notify.success(response.json().message);
+        this.router.navigate(['/signin']);
+      },
+      (err) => { this.notify.error(err.json().message); }
+    );
+  }
 
 }

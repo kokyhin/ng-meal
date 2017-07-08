@@ -1,3 +1,4 @@
+import { Response } from '@angular/http';
 import { NotificationsService } from 'angular2-notifications';
 import { AuthService } from './../auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -46,7 +47,7 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     this.authService.register(this.signupForm.value).subscribe(
-      (response) => {
+      (response: Response) => {
         this.notify.success(response.json().message);
         this.signupForm.reset();
       },

@@ -7,9 +7,7 @@ const crypto   = require('crypto');
 const nodemailer = require('nodemailer');
 
 generateRandomToken = function(len) {
-  return crypto.randomBytes(Math.ceil(len/2))
-    .toString('hex') // convert to hexadecimal format
-    .slice(0,len);   // return required number of characters
+  return crypto.randomBytes(Math.ceil(len/2)).toString('hex') .slice(0,len);
 };
 
 router.route('/register').post(function(req,res,next) {
@@ -25,6 +23,7 @@ router.route('/register').post(function(req,res,next) {
 
   User.findOne({email: mail}, function(err, user) {
     if (user) {return res.status(400).send({message: 'User already registered'});}
+
     User.register(new User({
       username: mail.split('@')[0],
       email: mail,
@@ -58,8 +57,8 @@ router.post('/reset-password', function(req, res){
     user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
     user.save(function(err) {
       if(err) { return res.status(400).send({message: err.message}); }
-
       let resetTokenLink = process.env.APP_URL + 'reset-password/?reset=' + user.resetPasswordToken;
+
       let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -79,7 +78,24 @@ router.post('/reset-password', function(req, res){
         res.status(200).send({message: `On your email: ${req.body.email} was send reset password instruction`});
         if (error) {return res.status(400).send({message: error}); }
       });
+    });
+  });
+});
 
+router.put('/update-password', function(req, res){
+  const newPass = req.body.password;
+  const token   = req.body.token;
+  User.findOne({resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() }}, function(err, user){
+    if(err) { return res.status(200).send({message: err})};
+    if(!user) {return res.status(404).send({message: 'User not found or token expired, please reset password again'})};
+
+    user.password = newPass;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    user.save(function(err){
+      if(err) { return res.status(200).send({message: err})};
+      return res.status(200).send({message: 'Password was successfully updated please login'})
     });
   });
 });

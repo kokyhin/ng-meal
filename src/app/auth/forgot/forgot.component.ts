@@ -1,3 +1,4 @@
+import { Response } from '@angular/http';
 import { NotificationsService } from 'angular2-notifications';
 import { AuthService } from './../auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -34,7 +35,7 @@ export class ForgotComponent implements OnInit {
 
   onSubmit() {
     this.authService.reset(this.resetForm.value).subscribe(
-      (response) => {
+      (response: Response) => {
         this.notify.success(response.json().message);
         this.resetForm.reset();
       },

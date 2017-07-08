@@ -34,4 +34,8 @@ export class AuthService {
     return this.http.post('/api/auth/reset-password', email);
   }
 
+  passwordUpdate(data: Object) {
+    return this.http.put('/api/auth/update-password', data);
+  }
+
 }

@@ -1,3 +1,4 @@
+import { Response } from '@angular/http';
 import { NotificationsService } from 'angular2-notifications';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -27,7 +28,7 @@ export class SigninComponent implements OnInit {
 
   onSubmit() {
     this.authService.login(this.signinForm.value).subscribe(
-      (response) => {
+      (response: Response) => {
         this.signinForm.reset();
         this.router.navigate(['/']);
       },
