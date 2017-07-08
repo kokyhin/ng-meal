@@ -75,8 +75,8 @@ router.post('/reset-password', function(req, res){
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
-        res.status(200).send({message: `On your email: ${req.body.email} was send reset password instruction`});
         if (error) {return res.status(400).send({message: error}); }
+        return res.status(200).send({message: `On your email: ${req.body.email} was send reset password instruction`});
       });
     });
   });

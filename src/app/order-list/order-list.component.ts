@@ -13,8 +13,7 @@ export class OrderListComponent implements OnInit {
   ngOnInit() {
   }
 
-  test() {
-    console.log('logoutClicked')
+  logout() {
     this.authService.logout();
   }
 
