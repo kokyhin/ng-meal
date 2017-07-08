@@ -11,6 +11,6 @@ setHeader = function (req, res, next) {
 };
 
 router.use('/auth', setHeader, auth);
-rotuer.use('/order', setHeader, order);
+router.use('/order', setHeader, order);
 
 module.exports = router;
