@@ -1,3 +1,4 @@
+import { OrderService } from './../order-list/order.service';
 import { PreloaderService } from './preloader/preloader.service';
 import { PreloaderComponent } from './preloader/preloader.component';
 import { AuthGuard } from './../auth/auth-guard.service';
@@ -24,7 +25,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
   providers: [
     AuthService,
     AuthGuard,
-    PreloaderService
+    PreloaderService,
+    OrderService
   ]
 })
 export class CoreModule { }
