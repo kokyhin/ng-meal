@@ -10,6 +10,10 @@ var User = new Schema({
   password:   { type: String},
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  orders: [{
+    type: Schema.ObjectId,
+    ref: 'orders'
+  }]
 });
 
 User.pre('save', function(next) {
