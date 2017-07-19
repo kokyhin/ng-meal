@@ -22,7 +22,7 @@ router.get('/get-week', function(req, res){
     weekObj = getCurrentWeek(nextWeek);
   } else {
     weekObj = getCurrentWeek(date);
-    weekObj.acive = currDay;
+    weekObj.active = currDay;
   }
   return res.status(200).send(weekObj);
 });
