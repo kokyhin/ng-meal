@@ -17,7 +17,7 @@ router.get('/get-week', function(req, res){
   let date = moment();
   let currDay = date.date() + '/' + (date.month() +1);
   let weekObj = {};
-  if (date.weekday() >= 5 && date.hour() >= 14) {
+  if ((date.weekday() == 5 && date.hour() >= 14) || date.weekday() > 5)  { //Check for 6 and 7
     let nextWeek = date.isoWeek(date.isoWeek() +1);
     weekObj = getCurrentWeek(nextWeek);
   } else {
