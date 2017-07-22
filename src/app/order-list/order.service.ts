@@ -15,4 +15,8 @@ export class OrderService {
     return this.http.get('/api/order/get-week');
   }
 
+  getNextWeek() {
+    return this.http.get('/api/order/get-next-week');
+  }
+
 }

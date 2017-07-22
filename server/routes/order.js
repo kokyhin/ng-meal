@@ -37,4 +37,11 @@ router.get('/get-week', function(req, res){
   return res.status(200).send(week);
 });
 
+router.get('/get-next-week', function(req, res){
+  let date = moment();
+  let nextWeek = date.isoWeek(date.isoWeek() +1);
+  let week = getCurrentWeek(nextWeek);
+  return res.status(200).send(week);
+});
+
 module.exports = router;

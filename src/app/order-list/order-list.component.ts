@@ -40,4 +40,11 @@ export class OrderListComponent implements OnInit {
       (error) => { this.notify.success(error.json().message); }
     );
   }
+
+  getNextWeek() {
+    this.orderService.getNextWeek().subscribe(
+      (response: Response) => { console.log(response.json()); },
+      (error) => { this.notify.success(error.json().message); }
+    );
+  }
 }
