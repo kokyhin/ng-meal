@@ -10,7 +10,7 @@ generateRandomToken = function(len) {
   return crypto.randomBytes(Math.ceil(len/2)).toString('hex') .slice(0,len);
 };
 
-router.route('/register').post(function(req,res,next) {
+router.route('/register').post((req,res,next) => {
   const mail = req.body.email;
   let isCorporateEmail = function(mail) {
     let mailParts = mail.split('@');
@@ -21,22 +21,22 @@ router.route('/register').post(function(req,res,next) {
     return res.status(400).send({message: 'Invalid email, use corporate Email'});
   }
 
-  User.findOne({email: mail}, function(err, user) {
+  User.findOne({email: mail}, (err, user) => {
     if (user) {return res.status(400).send({message: 'User already registered'});}
 
     User.register(new User({
       username: mail.split('@')[0],
       email: mail,
       password: req.body.password,
-    }), req.body.password, function(err, newUser){
+    }), req.body.password, (err, newUser) => {
       if (err) {return res.status(400).send({message: err.message});}
       return res.status(200).send({message: 'User was successfully registered'});
     });
   });
 });
 
-router.post('/login', passport.authenticate('local'), function(req, res) {
-  User.findOne({'_id': req.user._id}, function(err, user) {
+router.post('/login', passport.authenticate('local'), (req, res) => {
+  User.findOne({'_id': req.user._id}, (err, user) => {
     if (err) {
       return res.status(400).send({message: err.message});
     }
@@ -44,18 +44,18 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
   });
 });
 
-router.get('/logout', function(req, res) {
+router.get('/logout', (req, res) => {
   req.logout();
   res.status(200).send({message: 'Logged out'});
 });
 
-router.post('/reset-password', function(req, res){
-  User.findOne({ email: req.body.email}, function(err, user) {
+router.post('/reset-password', (req, res) =>{
+  User.findOne({ email: req.body.email}, (err, user) => {
     if (!user) { return res.status(404).send({message: 'User not found'}); }
     if(err) { return res.status(400).send({message: err.message}); }
     user.resetPasswordToken = generateRandomToken(20);
     user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-    user.save(function(err) {
+    user.save((err) => {
       if(err) { return res.status(400).send({message: err.message}); }
       let resetTokenLink = process.env.APP_URL + 'reset-password/?reset=' + user.resetPasswordToken;
 
@@ -82,10 +82,10 @@ router.post('/reset-password', function(req, res){
   });
 });
 
-router.put('/update-password', function(req, res){
+router.put('/update-password', (req, res) =>{
   const newPass = req.body.password;
   const token   = req.body.token;
-  User.findOne({resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() }}, function(err, user){
+  User.findOne({resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() }}, (err, user) => {
     if(err) { return res.status(200).send({message: err})};
     if(!user) {return res.status(404).send({message: 'User not found or token expired, please reset password again'})};
 
@@ -93,14 +93,14 @@ router.put('/update-password', function(req, res){
     user.resetPasswordToken = undefined;
     user.resetPasswordExpires = undefined;
 
-    user.save(function(err){
+    user.save((err) =>{
       if(err) { return res.status(200).send({message: err})};
       return res.status(200).send({message: 'Password was successfully updated please login'})
     });
   });
 });
 
-router.get('/is-auth', function(req, res){
+router.get('/is-auth', (req, res) => {
   if (req.isAuthenticated()) {
     return res.status(200).send('isAuth');
   } else {

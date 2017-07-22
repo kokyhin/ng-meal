@@ -23,7 +23,7 @@ function getCurrentWeek(date) {
   return week;
 }
 
-router.get('/get-week', function(req, res){
+router.get('/get-week', (req, res) => {
   let date = moment();
   let currDay = date.date() + '/' + (date.month() +1);
   let week;
@@ -37,11 +37,15 @@ router.get('/get-week', function(req, res){
   return res.status(200).send(week);
 });
 
-router.get('/get-next-week', function(req, res){
+router.get('/get-next-week', (req, res) => {
   let date = moment();
   let nextWeek = date.isoWeek(date.isoWeek() +1);
   let week = getCurrentWeek(nextWeek);
   return res.status(200).send(week);
+});
+
+router.put('/order', (req, res) => {
+  let order = req.body;
 });
 
 module.exports = router;
