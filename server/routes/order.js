@@ -3,28 +3,38 @@ const router   = express.Router();
 const mongoose = require('mongoose');
 const moment   = require('moment');
 
-function getCurrentWeek(week) {
-  return {
-    mon: week.weekday(1).date() + '/' + (week.weekday(1).month() +1),
-    tue: week.weekday(2).date() + '/' + (week.weekday(2).month() +1),
-    wed: week.weekday(3).date() + '/' + (week.weekday(3).month() +1),
-    thu: week.weekday(4).date() + '/' + (week.weekday(4).month() +1),
-    fri: week.weekday(5).date() + '/' + (week.weekday(5).month() +1)
+function getCurrentWeek(date) {
+  let week = [];
+  for (var i = 1; i < 6; i++) {
+    let day = {
+      unix: date.isoWeekday(i).startOf('day').unix(),
+      date: moment.unix(date.isoWeekday(i).startOf('day').unix()).format("DD/MM/YYYY"),
+      order: {
+        first:  {value: 0, option: 'default'},
+        second: {value: 0, option: 'default'},
+        total: 0
+      }
+    }
+    week.push(day);
   }
+  // week.forEach(function(day) {
+  //   mongoose.model
+  // }, this);
+  return week;
 }
 
 router.get('/get-week', function(req, res){
   let date = moment();
   let currDay = date.date() + '/' + (date.month() +1);
-  let weekObj = {};
-  if ((date.weekday() == 5 && date.hour() >= 14) || date.weekday() > 5)  { //Check for 6 and 7
+  let week;
+  if ((date.weekday() == 5 && date.hour() >= 14) || date.weekday() > 5)  {
     let nextWeek = date.isoWeek(date.isoWeek() +1);
-    weekObj = getCurrentWeek(nextWeek);
+    week = getCurrentWeek(nextWeek);
   } else {
-    weekObj = getCurrentWeek(date);
-    weekObj.active = currDay;
+    week = getCurrentWeek(date);
+    week.active = currDay;
   }
-  return res.status(200).send(weekObj);
+  return res.status(200).send(week);
 });
 
 module.exports = router;
