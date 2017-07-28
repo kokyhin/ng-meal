@@ -19,4 +19,8 @@ export class OrderService {
     return this.http.get('/api/order/get-next-week');
   }
 
+  save(order) {
+    return this.http.post('/api/order', order);
+  }
+
 }
