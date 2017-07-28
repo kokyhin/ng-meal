@@ -6,13 +6,13 @@ const passport = require('passport');
 const crypto   = require('crypto');
 const nodemailer = require('nodemailer');
 
-generateRandomToken = function(len) {
+generateRandomToken = (len) => {
   return crypto.randomBytes(Math.ceil(len/2)).toString('hex') .slice(0,len);
 };
 
 router.route('/register').post((req,res,next) => {
   const mail = req.body.email;
-  let isCorporateEmail = function(mail) {
+  let isCorporateEmail = (mail) => {
     let mailParts = mail.split('@');
     return mailParts[1] == 'fusionworks.md';
   }
