@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { OrderService } from './../order-list/order.service';
 import { PreloaderService } from './preloader/preloader.service';
 import { PreloaderComponent } from './preloader/preloader.component';
@@ -20,13 +21,15 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     FooterComponent,
     HeaderComponent,
     SimpleNotificationsModule,
-    PreloaderComponent
+    PreloaderComponent,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
     AuthGuard,
     PreloaderService,
-    OrderService
+    OrderService,
+    ReactiveFormsModule
   ]
 })
 export class CoreModule { }
