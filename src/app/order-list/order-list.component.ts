@@ -1,3 +1,4 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { Response } from '@angular/http';
 import { OrderService } from './order.service';
@@ -11,6 +12,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order-list.component.scss']
 })
 export class OrderListComponent implements OnInit {
+  orders: Object;
+  orderForm: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -20,6 +23,11 @@ export class OrderListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.getWeek();
+    this.orderForm = new FormGroup({
+      'first': new FormControl(null, [Validators.required]),
+      'second': new FormControl(null, [Validators.required]),
+    });
   }
 
   logout() {
@@ -36,13 +44,22 @@ export class OrderListComponent implements OnInit {
 
   getWeek() {
     this.orderService.getWeek().subscribe(
-      (response: Response) => { console.log(response.json()); },
+      (response: Response) => {
+        this.orders = response.json();
+      },
       (error) => { this.notify.success(error.json().message); }
     );
   }
 
   getNextWeek() {
     this.orderService.getNextWeek().subscribe(
+      (response: Response) => { console.log(response.json()); },
+      (error) => { this.notify.success(error.json().message); }
+    );
+  }
+
+  onSubmit(order) {
+    this.orderService.save(order).subscribe(
       (response: Response) => { console.log(response.json()); },
       (error) => { this.notify.success(error.json().message); }
     );
