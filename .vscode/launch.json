@@ -8,7 +8,8 @@
       "type": "node",
       "request": "attach",
       "name": "Attach",
-      "localRoot": "${workspaceRoot}/server.js"
+      "localRoot": "${workspaceRoot}/server.js",
+      "restart": true
     }
   ]
 }
