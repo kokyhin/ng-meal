@@ -64,11 +64,14 @@ export class OrderListComponent implements OnInit {
     );
   }
 
-  onSubmit(order) {
+  onSubmit(order, i) {
     const computedOrder = order;
     computedOrder.order = this.orderForm.value;
     this.orderService.save(computedOrder).subscribe(
-      (response: Response) => { this.notify.success(response.json().message); },
+      (response: Response) => {
+        this.orders[i]._id = response.json()._id;
+        this.notify.success('Success');
+      },
       (error) => { this.notify.error(error.json().message); }
     );
   }
