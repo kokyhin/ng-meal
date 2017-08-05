@@ -3,7 +3,8 @@ var Schema   = mongoose.Schema;
 
 var order = new Schema({
   id: Schema.ObjectId,
-  date: Number,
+  date: String,
+  unix: Date,
   first: {
     value: {type: Number, default: 0},
     option: {type: String, default: 'default'}
