@@ -23,11 +23,17 @@ export class OrderListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getWeek();
     this.orderForm = new FormGroup({
-      'first': new FormControl(null, [Validators.required]),
-      'second': new FormControl(null, [Validators.required]),
+      'first': new FormGroup({
+        'value': new FormControl(0, [Validators.required]),
+        'option': new FormControl('default', [Validators.required]),
+      }),
+      'second': new FormGroup({
+        'value': new FormControl(0, [Validators.required]),
+        'option': new FormControl('default', [Validators.required]),
+      }),
     });
+    this.getWeek();
   }
 
   logout() {
@@ -47,21 +53,23 @@ export class OrderListComponent implements OnInit {
       (response: Response) => {
         this.orders = response.json();
       },
-      (error) => { this.notify.success(error.json().message); }
+      (error) => { this.notify.error(error.json().message); }
     );
   }
 
   getNextWeek() {
     this.orderService.getNextWeek().subscribe(
       (response: Response) => { console.log(response.json()); },
-      (error) => { this.notify.success(error.json().message); }
+      (error) => { this.notify.error(error.json().message); }
     );
   }
 
   onSubmit(order) {
-    this.orderService.save(order).subscribe(
-      (response: Response) => { console.log(response.json()); },
-      (error) => { this.notify.success(error.json().message); }
+    const computedOrder = order;
+    computedOrder.order = this.orderForm.value;
+    this.orderService.save(computedOrder).subscribe(
+      (response: Response) => { this.notify.success(response.json().message); },
+      (error) => { this.notify.error(error.json().message); }
     );
   }
 }
