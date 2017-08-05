@@ -75,7 +75,7 @@ router.post('/reset-password', (req, res) =>{
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {return res.status(400).send({message: error}); }
+        if (error) {return res.status(400).send({message: error.message}); }
         return res.status(200).send({message: `On your email: ${req.body.email} was send reset password instruction`});
       });
     });
@@ -86,7 +86,7 @@ router.put('/update-password', (req, res) =>{
   const newPass = req.body.password;
   const token   = req.body.token;
   User.findOne({resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() }}, (err, user) => {
-    if(err) { return res.status(200).send({message: err})};
+    if(err) { return res.status(200).send({message: err.message})};
     if(!user) {return res.status(404).send({message: 'User not found or token expired, please reset password again'})};
 
     user.password = newPass;
@@ -94,7 +94,7 @@ router.put('/update-password', (req, res) =>{
     user.resetPasswordExpires = undefined;
 
     user.save((err) =>{
-      if(err) { return res.status(200).send({message: err})};
+      if(err) { return res.status(200).send({message: err.message})};
       return res.status(200).send({message: 'Password was successfully updated please login'})
     });
   });
