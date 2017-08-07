@@ -1,4 +1,4 @@
-<form [formGroup]="orderForm" (ngSubmit)="onSubmit(order, index)">
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit(order)">
   <div formGroupName="first">
     <select *ngIf="order.order.first.option != 'default'">
       <option>val 1</option>
@@ -13,5 +13,5 @@
     </select>
     <input type="text" id="second" class="form-control" type="number" value="{{order.order.second.value}}" formControlName="value">
   </div>
-  <button class="btn btn-login" type="submit">save</button>
+  <button class="btn btn-login" type="submit" [disabled]="!this.orderForm.valid">save</button>
 </form>

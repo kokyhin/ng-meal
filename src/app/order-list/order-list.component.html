@@ -1,7 +1,13 @@
-<p>
-  order-list works!
-</p>
 
+<div class="container">
+  <div class="row">
+     <div class="box" *ngFor="let order of orders; let i = index">
+      {{order.date}}
+      <app-order [order]="order"></app-order>
+     </div>
+  </div>
+</div>
+<br><br>
 <button class="btn btn-primary" (click)="logout()">Logout</button>
 <button class="btn btn-primary" (click)="preloadClick()">preload</button>
 <button class="btn btn-primary" (click)="getWeek()">get week</button>

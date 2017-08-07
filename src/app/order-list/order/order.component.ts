@@ -20,12 +20,12 @@ export class OrderComponent implements OnInit {
   ngOnInit() {
     this.orderForm = new FormGroup({
       'first': new FormGroup({
-        'value': new FormControl(0, [Validators.required, this.checkPositiveNumber]),
-        'option': new FormControl('default', [Validators.required]),
+        'value': new FormControl(this.order.order.first.value, [Validators.required, this.checkPositiveNumber]),
+        'option': new FormControl(this.order.order.first.option, [Validators.required]),
       }),
       'second': new FormGroup({
-        'value': new FormControl(0, [Validators.required, this.checkPositiveNumber]),
-        'option': new FormControl('default', [Validators.required]),
+        'value': new FormControl(this.order.order.second.value, [Validators.required, this.checkPositiveNumber]),
+        'option': new FormControl(this.order.order.second.option, [Validators.required]),
       }),
     });
   }
@@ -34,7 +34,7 @@ export class OrderComponent implements OnInit {
     return control.value < 0 ? {'invalidNumber': true} : null;
   }
 
-  onSubmit(order, i) {
+  onSubmit(order) {
     if (!this.orderForm.valid) { return; };
     const computedOrder = order;
     computedOrder.order = this.orderForm.value;
