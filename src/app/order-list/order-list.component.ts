@@ -25,7 +25,7 @@ export class OrderListComponent implements OnInit {
   ngOnInit() {
     this.orderForm = new FormGroup({
       'first': new FormGroup({
-        'value': new FormControl(0, [Validators.required]),
+        'value': new FormControl(0, [Validators.required, this.checkPositiveNumber]),
         'option': new FormControl('default', [Validators.required]),
       }),
       'second': new FormGroup({
@@ -64,7 +64,15 @@ export class OrderListComponent implements OnInit {
     );
   }
 
+  checkPositiveNumber(control: FormControl) {
+    if (control.value < 0) {
+      return {'invalidNumber': true};
+    }
+    return null;
+  }
+
   onSubmit(order, i) {
+    if (!this.orderForm.valid) { return; };
     const computedOrder = order;
     computedOrder.order = this.orderForm.value;
     this.orderService.save(computedOrder).subscribe(
