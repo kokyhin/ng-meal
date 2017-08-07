@@ -47,7 +47,7 @@ export class OrderListComponent implements OnInit {
 
   getNextWeek() {
     this.orderService.getNextWeek().subscribe(
-      (response: Response) => { console.log(response.json()); },
+      (response: Response) => { this.orders = response.json(); },
       (error) => { this.notify.error(error.json().message); }
     );
   }

@@ -25,17 +25,7 @@ function getCurrentWeek(date) {
   return week;
 }
 
-router.get('/get-week', (req, res) => {
-  let date = moment();
-  let currDay = date.date() + '/' + (date.month() +1);
-  let week;
-  if ((date.weekday() == 5 && date.hour() >= 14) || date.weekday() > 5 || date.weekday() == 0)  {
-    let nextWeek = date.isoWeek(date.isoWeek() +1);
-    week = getCurrentWeek(nextWeek);
-  } else {
-    week = getCurrentWeek(date);
-    week.active = currDay;
-  }
+function populateWeek(res, req, week) {
   User.findOne({'_id': req.user._id}).populate('orders').exec((err, user) => {
     if(!user) {return res.status(400).send({message: 'Usernot found'});}
     if(err) { return res.status(400).send({message: err.message});}
@@ -54,16 +44,29 @@ router.get('/get-week', (req, res) => {
         return day;
       } else {return day;}
     });
-
     return res.status(200).send(weekPopulated);
   });
+}
+
+router.get('/get-week', (req, res) => {
+  let date = moment();
+  let currDay = date.date() + '/' + (date.month() +1);
+  let week;
+  if ((date.weekday() == 5 && date.hour() >= 14) || date.weekday() > 5 || date.weekday() == 0)  {
+    let nextWeek = date.isoWeek(date.isoWeek() +1);
+    week = getCurrentWeek(nextWeek);
+  } else {
+    week = getCurrentWeek(date);
+    week.active = currDay;
+  }
+  populateWeek(res, req, week);
 });
 
 router.get('/get-next-week', (req, res) => {
   let date = moment();
   let nextWeek = date.isoWeek(date.isoWeek() +1);
   let week = getCurrentWeek(nextWeek);
-  return res.status(200).send(week);
+  populateWeek(res, req, week);
 });
 
 router.post('/', (req, res) => {
