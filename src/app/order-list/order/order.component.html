@@ -1,3 +1,17 @@
-<p>
-  order works!
-</p>
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit(order, index)">
+  <div formGroupName="first">
+    <select *ngIf="order.order.first.option != 'default'">
+      <option>val 1</option>
+      <option>val 2</option>
+    </select>
+    <input type="text" id="first" class="form-control" type="number" min="0" value="{{order.order.first.value}}" formControlName="value">
+  </div>
+  <div formGroupName="second">
+    <select *ngIf="order.order.second.option != 'default'">
+      <option>val 1</option>
+      <option>val 2</option>
+    </select>
+    <input type="text" id="second" class="form-control" type="number" value="{{order.order.second.value}}" formControlName="value">
+  </div>
+  <button class="btn btn-login" type="submit">save</button>
+</form>

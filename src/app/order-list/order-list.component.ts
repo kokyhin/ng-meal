@@ -1,4 +1,3 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { Response } from '@angular/http';
 import { OrderService } from './order.service';
@@ -13,7 +12,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderListComponent implements OnInit {
   orders: Object;
-  orderForm: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -23,16 +21,6 @@ export class OrderListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.orderForm = new FormGroup({
-      'first': new FormGroup({
-        'value': new FormControl(0, [Validators.required, this.checkPositiveNumber]),
-        'option': new FormControl('default', [Validators.required]),
-      }),
-      'second': new FormGroup({
-        'value': new FormControl(0, [Validators.required]),
-        'option': new FormControl('default', [Validators.required]),
-      }),
-    });
     this.getWeek();
   }
 
@@ -60,26 +48,6 @@ export class OrderListComponent implements OnInit {
   getNextWeek() {
     this.orderService.getNextWeek().subscribe(
       (response: Response) => { console.log(response.json()); },
-      (error) => { this.notify.error(error.json().message); }
-    );
-  }
-
-  checkPositiveNumber(control: FormControl) {
-    if (control.value < 0) {
-      return {'invalidNumber': true};
-    }
-    return null;
-  }
-
-  onSubmit(order, i) {
-    if (!this.orderForm.valid) { return; };
-    const computedOrder = order;
-    computedOrder.order = this.orderForm.value;
-    this.orderService.save(computedOrder).subscribe(
-      (response: Response) => {
-        this.orders[i]._id = response.json()._id;
-        this.notify.success('Success');
-      },
       (error) => { this.notify.error(error.json().message); }
     );
   }
