@@ -8,7 +8,7 @@ const User     = require('../models/user');
 
 function generateWeek() {
   let date = moment();
-  let currDay = date.date() + '/' + (date.month() +1);
+  let currDay = moment().format("DD/MM/YYYY");
   let week;
   if ((date.weekday() == 5 && date.hour() >= 14) || date.weekday() > 5 || date.weekday() == 0)  {
     let nextWeek = date.isoWeek(date.isoWeek() +1);
@@ -76,6 +76,7 @@ router.get('/get-next-week', (req, res) => {
 
 router.get('/week-orders', (req, res) => {
   let week = generateWeek();
+  debugger
 });
 
 router.post('/', (req, res) => {
