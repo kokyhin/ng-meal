@@ -41,6 +41,7 @@ export class OrderComponent implements OnInit {
     this.orderService.save(computedOrder).subscribe(
       (response: Response) => {
         this.order._id = response.json()._id;
+        this.order.order.total = response.json().total;
         this.notify.success('Success');
       },
       (error) => { this.notify.error(error.json().message); }

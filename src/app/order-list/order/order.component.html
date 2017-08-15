@@ -13,5 +13,6 @@
     </select>
     <input type="text" id="second" class="form-control" type="number" value="{{order.order.second.value}}" formControlName="value">
   </div>
+  {{order.order.total}} <br>
   <button class="btn btn-login" type="submit" [disabled]="!this.orderForm.valid">save</button>
 </form>

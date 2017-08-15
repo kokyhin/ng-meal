@@ -52,7 +52,8 @@ function populateWeek(res, req, week) {
         day._id = orderFound._id;
         let oldOrder = {
           first: orderFound.first,
-          second: orderFound.second
+          second: orderFound.second,
+          total: orderFound.total
         }
         day.order = oldOrder;
         return day;
@@ -104,12 +105,12 @@ router.post('/', (req, res) => {
     if(!user) {return res.status(400).send({message: 'Usernot found'});}
     if(err) { return res.status(400).send({message: err.message});}
     order.user = user._id;
-    order.total = 0;
+    order.total = order.order.first.value * process.env.PRICE_FIRST + order.order.second.value * process.env.PRICE_SECOND;
     order.first = order.order.first;
     order.second = order.order.second;
     delete order.order;
     if (order._id) {
-      Order.findOneAndUpdate({_id: order._id}, order, (err, updatedOrder) => {
+      Order.findOneAndUpdate({_id: order._id}, order, {new: true}, (err, updatedOrder) => {
         if(err) { return res.status(400).send({message: err.message});}
         return res.status(200).send(updatedOrder);
       });
