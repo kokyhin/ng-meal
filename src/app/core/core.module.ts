@@ -1,3 +1,4 @@
+import { AdminGuard } from './../admin/admin-guard.service';
 import { AdminService } from './../admin/admin.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrderService } from './../order-list/order.service';
@@ -29,6 +30,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     AdminService,
     AuthService,
     AuthGuard,
+    AdminGuard,
     PreloaderService,
     OrderService,
     ReactiveFormsModule

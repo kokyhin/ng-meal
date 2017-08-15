@@ -102,7 +102,7 @@ router.put('/update-password', (req, res) =>{
 
 router.get('/is-auth', (req, res) => {
   if (req.isAuthenticated()) {
-    return res.status(200).send('isAuth');
+    return res.status(200).send(req.user);
   } else {
     return res.status(401).send('Unauthorized');
   }

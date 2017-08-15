@@ -8,6 +8,7 @@ var User = new Schema({
   username:   { type: String, required: true, unique: true},
   email:      { type: String, required: true, unique: true},
   password:   { type: String},
+  admin:      {type: Boolean, default: false},
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   orders: [{
