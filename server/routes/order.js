@@ -6,6 +6,20 @@ var _          = require('lodash');
 const Order    = require('../models/order');
 const User     = require('../models/user');
 
+function generateWeek() {
+  let date = moment();
+  let currDay = date.date() + '/' + (date.month() +1);
+  let week;
+  if ((date.weekday() == 5 && date.hour() >= 14) || date.weekday() > 5 || date.weekday() == 0)  {
+    let nextWeek = date.isoWeek(date.isoWeek() +1);
+   return getCurrentWeek(nextWeek);
+  } else {
+    week = getCurrentWeek(date);
+    week.active = currDay;
+    return week
+  }
+}
+
 function getCurrentWeek(date) {
   let week = [];
   let orderDefault = {
@@ -49,16 +63,7 @@ function populateWeek(res, req, week) {
 }
 
 router.get('/get-week', (req, res) => {
-  let date = moment();
-  let currDay = date.date() + '/' + (date.month() +1);
-  let week;
-  if ((date.weekday() == 5 && date.hour() >= 14) || date.weekday() > 5 || date.weekday() == 0)  {
-    let nextWeek = date.isoWeek(date.isoWeek() +1);
-    week = getCurrentWeek(nextWeek);
-  } else {
-    week = getCurrentWeek(date);
-    week.active = currDay;
-  }
+  let week = generateWeek();
   populateWeek(res, req, week);
 });
 
@@ -67,6 +72,10 @@ router.get('/get-next-week', (req, res) => {
   let nextWeek = date.isoWeek(date.isoWeek() +1);
   let week = getCurrentWeek(nextWeek);
   populateWeek(res, req, week);
+});
+
+router.get('/week-orders', (req, res) => {
+  let week = generateWeek();
 });
 
 router.post('/', (req, res) => {

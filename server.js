@@ -104,6 +104,6 @@ const server = http.createServer(app);
 server.listen(port, () => console.log(`API running on localhost:${port}`));
 
 process.on('SIGINT', () => {
-  build.kill('SIGINT');
+  nbuild.kill('SIGINT');
   process.exit();
 });
