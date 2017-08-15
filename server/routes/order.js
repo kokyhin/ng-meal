@@ -76,7 +76,26 @@ router.get('/get-next-week', (req, res) => {
 
 router.get('/week-orders', (req, res) => {
   let week = generateWeek();
-  debugger
+  let weekOrders = [];
+  let weekDays = _.map(week, (day) => {return day.unix;});
+  Order.find().populate('user').exec((err, orders) => {
+    if(err) { return res.status(400).send({message: err.message});}
+    weekDays.forEach(function(day) {
+      let dayOrders = _.map(_.filter(orders, (order) => {
+        return new Date(order.unix) / 1 == day;
+      }), (order) => {
+        return {
+          _id: order._id,
+          total: order.total,
+          user: order.user.username,
+          first: order.first,
+          second: order.second
+        }
+      })
+      weekOrders.push(dayOrders);
+    }, this);
+    return res.status(200).send({active: week.active, week: weekOrders});
+  });
 });
 
 router.post('/', (req, res) => {

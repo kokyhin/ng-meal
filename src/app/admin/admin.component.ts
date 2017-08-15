@@ -21,7 +21,7 @@ export class AdminComponent implements OnInit {
 
   getWeek() {
     this.adminService.getOrdersWeek().subscribe(
-      (response: Response) => {},
+      (response: Response) => { console.log(response.json()); },
       (error) => { this.notify.error(error.json().message); }
     );
   }
