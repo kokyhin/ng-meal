@@ -1,3 +1,4 @@
+import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './auth/auth-guard.service';
 import { OrderListComponent } from './order-list/order-list.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
@@ -6,6 +7,7 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   { path: '', component: OrderListComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminComponent},
   { path: '404', component: ErrorPageComponent, data: {message: 'Page not Found'} },
   { path: '**', redirectTo: '/404' }
 ];

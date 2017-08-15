@@ -9,13 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderComponent } from './order-list/order/order.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ErrorPageComponent,
     OrderListComponent,
-    OrderComponent
+    OrderComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
