@@ -15,7 +15,6 @@ function generateWeek() {
    return getCurrentWeek(nextWeek);
   } else {
     week = getCurrentWeek(date);
-    week.active = currDay;
     return week
   }
 }
@@ -30,8 +29,7 @@ function getCurrentWeek(date) {
   for (var i = 1; i < 6; i++) {
     let day = {
       _id: null,
-      unix: date.isoWeekday(i).startOf('day').unix(),
-      date: moment.unix(date.isoWeekday(i).startOf('day').unix()).format("DD/MM/YYYY"),
+      date: moment.unix(date.isoWeekday(i).startOf('day').unix()),
       order: orderDefault
     }
     week.push(day);
@@ -46,7 +44,7 @@ function populateWeek(res, req, week) {
 
     let weekPopulated = week.map((day, i) => {
       let orderFound = _.find(user.orders, (order) => {
-        return order.date == day.date;
+        return order.date / 1000 == day.date.unix();
       });
       if(orderFound) {
         day._id = orderFound._id;
@@ -78,12 +76,12 @@ router.get('/get-next-week', (req, res) => {
 router.get('/week-orders', (req, res) => {
   let week = generateWeek();
   let weekOrders = [];
-  let weekDays = _.map(week, (day) => {return day.unix;});
+  let weekDays = _.map(week, (day) => {return day.date;});
   Order.find().populate('user').exec((err, orders) => {
     if(err) { return res.status(400).send({message: err.message});}
     weekDays.forEach(function(day) {
       let dayOrders = _.map(_.filter(orders, (order) => {
-        return new Date(order.unix) / 1 == day;
+        return new Date(order.date) / 1 == day;
       }), (order) => {
         return {
           _id: order._id,
@@ -95,7 +93,7 @@ router.get('/week-orders', (req, res) => {
       })
       weekOrders.push(dayOrders);
     }, this);
-    return res.status(200).send({active: week.active, week: weekOrders});
+    return res.status(200).send(weekOrders);
   });
 });
 
