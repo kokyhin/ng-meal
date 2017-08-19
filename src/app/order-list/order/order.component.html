@@ -1,10 +1,9 @@
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit(order)">
-  {{order.date}}
   <div class="date-wrapper">
-    <div class="week-day">monday</div>
+    <div class="week-day">{{order.unix*1000 | date: "EEEE"}}</div>
     <div class="date">
         <i class="fa fa-calendar-o"></i>
-        <span>Аugust 14, 2017</span>
+        <span>{{order.unix*1000 | date}}</span>
     </div>
   </div>
   <div formGroupName="first">
