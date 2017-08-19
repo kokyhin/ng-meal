@@ -2,13 +2,13 @@ const express  = require('express');
 const router   = express.Router();
 const mongoose = require('mongoose');
 const moment   = require('moment');
-var _          = require('lodash');
+const timeZone = require('moment-timezone');
+const _        = require('lodash');
 const Order    = require('../models/order');
 const User     = require('../models/user');
 
 function generateWeek() {
   let date = moment();
-  let currDay = moment().format("DD/MM/YYYY");
   let week;
   if ((date.weekday() == 5 && date.hour() >= 14) || date.weekday() > 5 || date.weekday() == 0)  {
     let nextWeek = date.isoWeek(date.isoWeek() +1);
@@ -107,6 +107,12 @@ router.post('/', (req, res) => {
     order.first = order.order.first;
     order.second = order.order.second;
     delete order.order;
+    let mdTime = timeZone().tz("Europe/Bucharest").get('hour');
+    let orderDate = new Date(order.date) / 1000;
+    let currDate = moment().startOf('day').unix();
+    if (orderDate == currDate && mdTime > 9) {
+      return res.status(400).send({message: 'You can order meal before 10 AM'});
+    }
     if (order._id) {
       Order.findOneAndUpdate({_id: order._id}, order, {new: true}, (err, updatedOrder) => {
         if(err) { return res.status(400).send({message: err.message});}
