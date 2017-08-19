@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+@import 'app/shared/font-awesome.min.css';
 @import 'app/shared/responsive.scss';
 
 body {
@@ -19,9 +20,6 @@ body {
   min-height: 50px;
 }
 app-signin, app-signup, app-forgot, app-reset-passwod {
-  background: url('./assets/img/login-bg.jpg') center center no-repeat;
-  background-size: cover;
-  color: #fff;
 
   @include breakpoint(xs) {
     padding: 20px;

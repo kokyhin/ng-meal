@@ -1,3 +1,104 @@
+@import '../../shared/responsive.scss';
 input.ng-invalid {
   border-color: red;
+}
+
+input {
+  border: 1px solid transparent;
+  background-color: rgba(65, 64, 69, 0.05);
+  height: 35px;
+  border-radius: 30px;
+  color: #2b2c4e;
+  font-size: 14px;
+  max-width: 60px;
+  box-shadow: none;
+
+  &:focus {
+    background-color: rgba(255,255,255, 0.6);
+    box-shadow: none;
+  }
+
+  &.ng-invalid.ng-touched {
+    border-color: #F44336;
+  }
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+
+  span {
+    font-size: 20px;
+
+    @include breakpoint(md) {
+      font-size: 14px;
+    }
+  }
+}
+
+.btn-save {
+  font-size: 20px;
+  padding: 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  line-height: 60px;
+  border: 2px solid #7fd344;
+  background-color: transparent;
+  border-radius: 30px;
+  color: #7fd344;
+
+  &:hover, &:focus {
+    background-color: #7fd344;
+    color: #fff;
+  }
+
+  @include breakpoint(md) {
+    font-size: 16px;
+    line-height: 40px;
+  }
+}
+
+.price {
+  padding: 20px 0 25px;
+  font-size: 20px;
+  text-align: right;
+  border-top: 2px solid rgba(65, 64, 69, 0.05);
+
+  @include breakpoint(md) {
+    font-size: 16px;
+  }
+}
+
+.date-wrapper {
+  padding: 25px 0 20px;
+
+  .week-day {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2b2c4e;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+
+    @include breakpoint(md) {
+      font-size: 16px;
+      margin-bottom: 0;
+    }
+  }
+
+  .date {
+    color: #7fd344;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+
+    @include breakpoint(md) {
+      font-size: 14px;
+    }
+
+    i {
+      margin-right: 10px;
+    }
+  }
 }

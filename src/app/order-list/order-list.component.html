@@ -1,14 +1,13 @@
-
-<div class="container">
-  <div class="row">
-     <div class="box" *ngFor="let order of orders; let i = index">
-      {{order.date}}
+<div class="white-wrapper">
+  <div class="order-list-wrapper">
+    <div class="box" *ngFor="let order of orders; let i = index">
+      <img class="img-responsive hidden-sm hidden-xs" src="../../../assets/img/meal-img-{{i}}.jpg" alt="img">
       <app-order [order]="order"></app-order>
-     </div>
+    </div>
   </div>
 </div>
-<br><br>
+<!-- <br><br>
 <button class="btn btn-primary" (click)="logout()">Logout</button>
 <button class="btn btn-primary" (click)="preloadClick()">preload</button>
 <button class="btn btn-primary" (click)="getWeek()">get week</button>
-<button class="btn btn-primary" (click)="getNextWeek()">get next week</button>
+<button class="btn btn-primary" (click)="getNextWeek()">get next week</button> -->

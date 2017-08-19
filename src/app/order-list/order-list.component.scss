@@ -1,4 +1,44 @@
+@import '../shared/responsive.scss';
+
+:host {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+
+  @include breakpoint(sm) {
+    height: auto;
+    display: block;
+  }
+}
+
 .box {
-  width: 150px;
+  width: 20%;
   float: left;
+  padding: 10px 25px;
+
+  @include breakpoint(md) {
+    padding: 10px;
+  }
+
+  @include breakpoint(sm) {
+    width: 100%;
+    float: none;
+  }
+}
+
+.white-wrapper {
+  background-color: #fff;
+  padding: 40px 0;
+  width: 100%;
+
+  @include breakpoint(sm) {
+    background-color: transparent;
+    color: #fff;
+  }
+}
+
+.order-list-wrapper {
+  width: 100%;
+  max-width: 1570px;
+  margin: 0 auto;
 }

@@ -3,16 +3,16 @@
     @media (max-width: 767px) { @content; }
   }
 
-  @else if $class == sm {
+  @else if $class == smUp {
     @media (min-width: 768px) { @content; }
   }
 
-  @else if $class == md {
-    @media (min-width: 992px) { @content; }
+  @else if $class == sm {
+    @media (max-width: 991px) { @content; }
   }
 
-  @else if $class == lg {
-    @media (min-width: 1200px) { @content; }
+  @else if $class == md {
+    @media (max-width: 1199px) { @content; }
   }
 
   @else {

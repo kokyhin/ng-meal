@@ -1,18 +1,34 @@
 <form [formGroup]="orderForm" (ngSubmit)="onSubmit(order)">
+  {{order.date}}
+  <div class="date-wrapper">
+    <div class="week-day">monday</div>
+    <div class="date">
+        <i class="fa fa-calendar-o"></i>
+        <span>Аugust 14, 2017</span>
+    </div>
+  </div>
   <div formGroupName="first">
     <select *ngIf="order.order.first.option != 'default'">
       <option>val 1</option>
       <option>val 2</option>
     </select>
-    <input type="text" id="first" class="form-control" type="number" min="0" value="{{order.order.first.value}}" formControlName="value">
+    <div class="input-wrapper">
+      <span>First</span>
+      <input type="text" id="first" class="form-control custom" type="number" min="0" value="{{order.order.first.value}}" formControlName="value">
+    </div>
   </div>
   <div formGroupName="second">
     <select *ngIf="order.order.second.option != 'default'">
       <option>val 1</option>
       <option>val 2</option>
     </select>
-    <input type="text" id="second" class="form-control" type="number" value="{{order.order.second.value}}" formControlName="value">
+    <div class="input-wrapper">
+        <span>Second</span>
+        <input type="text" id="second" class="form-control custom" type="number" value="{{order.order.second.value}}" formControlName="value">
+    </div>
   </div>
-  {{order.order.total}} <br>
-  <button class="btn btn-login" type="submit" [disabled]="!this.orderForm.valid">save</button>
+  <div class="price">
+    {{order.order.total}} MDL
+  </div>
+  <button class="btn btn-block btn-save" type="submit" [disabled]="!this.orderForm.valid">save</button>
 </form>
