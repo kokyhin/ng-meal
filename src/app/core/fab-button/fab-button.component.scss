@@ -20,7 +20,7 @@ $speed: 0.5;
   cursor: pointer;
   transition: all $speed*1s cubic-bezier(.42, 0, 0, 1);
   text-align: center;
-  line-height: 47px;
+  line-height: 49px;
   font-size: 25px;
 
   .content {
@@ -58,8 +58,8 @@ $speed: 0.5;
   }
   .minified {
     display: block;
-    background: #7fd344;
-    color: #fff;
+    background: transparent;
+    color: #7fd344;
     border-radius: 50px;
     border: 0;
     width: 50px;
@@ -68,8 +68,8 @@ $speed: 0.5;
     margin-left: -1px;
 
     &:hover {
-      background-color: transparent;
-      color: #7fd344;
+      background-color: #7fd344;
+      color: #fff;
     }
   }
   &.expanded {
