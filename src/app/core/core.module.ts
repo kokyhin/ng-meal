@@ -11,19 +11,21 @@ import { NgModule } from '@angular/core';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { FabButtonComponent } from './fab-button/fab-button.component';
 
 @NgModule({
   imports: [
     AppRoutingModule,
     SimpleNotificationsModule.forRoot()
   ],
-  declarations: [FooterComponent, HeaderComponent, PreloaderComponent],
+  declarations: [FooterComponent, HeaderComponent, PreloaderComponent, FabButtonComponent],
   exports: [
     AppRoutingModule,
     FooterComponent,
     HeaderComponent,
     SimpleNotificationsModule,
     PreloaderComponent,
+    FabButtonComponent,
     ReactiveFormsModule
   ],
   providers: [

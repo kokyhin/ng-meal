@@ -2,7 +2,6 @@ import { NotificationsService } from 'angular2-notifications';
 import { Response } from '@angular/http';
 import { OrderService } from './order.service';
 import { PreloaderService } from './../core/preloader/preloader.service';
-import { AuthService } from './../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -14,7 +13,6 @@ export class OrderListComponent implements OnInit {
   orders: Object;
 
   constructor(
-    private authService: AuthService,
     private preload: PreloaderService,
     private orderService: OrderService,
     private notify: NotificationsService
@@ -22,10 +20,6 @@ export class OrderListComponent implements OnInit {
 
   ngOnInit() {
     this.getWeek();
-  }
-
-  logout() {
-    this.authService.logout();
   }
 
   preloadClick() {
