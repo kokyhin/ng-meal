@@ -13,6 +13,10 @@ input {
   max-width: 60px;
   box-shadow: none;
 
+  @include breakpoint(sm) {
+    background-color: #fff;
+  }
+
   &:focus {
     background-color: rgba(255,255,255, 0.6);
     box-shadow: none;
@@ -69,6 +73,10 @@ input {
   @include breakpoint(md) {
     font-size: 16px;
   }
+
+  @include breakpoint(sm) {
+    padding: 0px 0 15px;
+  }
 }
 
 .date-wrapper {
@@ -84,6 +92,10 @@ input {
     @include breakpoint(md) {
       font-size: 16px;
       margin-bottom: 0;
+    }
+
+    @include breakpoint(sm) {
+      color: #fff;
     }
   }
 

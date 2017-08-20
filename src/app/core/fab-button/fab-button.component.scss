@@ -1,3 +1,5 @@
+@import '../../shared/responsive.scss';
+
 $speed: 0.5;
 .wrap {
   margin: 0 auto;
@@ -80,6 +82,10 @@ $speed: 0.5;
     border-left: 0;
     border-right: 0;
     border-bottom: 0;
+
+    @include breakpoint(sm) {
+      background-color: #fff;
+    }
 
     .minified {
       display: none;
