@@ -2,8 +2,8 @@
   <div class="minified"><i class="fa fa-bars"></i></div>
   <div class="content">
     <span class="tab active"><i class="fa fa-floppy-o" aria-hidden="true"></i></span>
-    <span class="tab"><i class="fa fa-backward" aria-hidden="true"></i></span>
-    <span class="tab"><i class="fa fa-forward" aria-hidden="true"></i></span>
+    <span class="tab" (click)="getCurrWeek()"><i class="fa fa-backward" aria-hidden="true"></i></span>
+    <span class="tab" (click)="getNextWeek()"><i class="fa fa-forward" aria-hidden="true"></i></span>
     <span class="tab" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
     <span class="tab close"><i class="fa fa-times"></i></span>
   </div>

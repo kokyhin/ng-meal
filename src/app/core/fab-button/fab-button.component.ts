@@ -1,5 +1,5 @@
 import { AuthService } from './../../auth/auth.service';
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-fab-button',
@@ -8,6 +8,8 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 })
 export class FabButtonComponent {
   @ViewChild('menuBtn') menu: ElementRef;
+  @Output() nextWeek = new EventEmitter();
+  @Output() currWeek = new EventEmitter();
 
   constructor(
     private authService: AuthService,
@@ -19,6 +21,14 @@ export class FabButtonComponent {
 
   logout() {
     this.authService.logout();
+  }
+
+  getNextWeek() {
+    this.nextWeek.emit();
+  }
+
+  getCurrWeek() {
+    this.currWeek.emit();
   }
 
 }
