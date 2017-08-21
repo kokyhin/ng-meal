@@ -34,6 +34,7 @@
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "mongoose": "^4.10.8",
+    "mydatepicker": "^2.0.27",
     "nodemailer": "^4.0.1",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
