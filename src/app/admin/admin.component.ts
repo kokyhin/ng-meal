@@ -12,8 +12,10 @@ import {IMyDpOptions} from 'mydatepicker';
 })
 export class AdminComponent implements OnInit {
   myDatePickerOptions: IMyDpOptions = {
-    // other options...
     dateFormat: 'dd.mm.yyyy',
+    markCurrentDay: true,
+    satHighlight: true,
+    disableWeekends: true
   };
 
   myForm: FormGroup;
@@ -26,13 +28,9 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.getWeek();
     this.myForm = this.formBuilder.group({
-      // Empty string or null means no initial value. Can be also specific date for
-      // example: {date: {year: 2018, month: 10, day: 9}} which sets this date to initial
-      // value.
-
       myDate: [null, Validators.required]
-      // other controls are here...
     });
+    this.setDate();
   }
 
   getWeek() {
@@ -43,8 +41,7 @@ export class AdminComponent implements OnInit {
   }
 
   setDate(): void {
-    // Set today date using the patchValue function
-    let date = new Date();
+    const date = new Date();
     this.myForm.patchValue({myDate: {
     date: {
       year: date.getFullYear(),
@@ -54,7 +51,6 @@ export class AdminComponent implements OnInit {
   }
 
   clearDate(): void {
-    // Clear the date using the patchValue function
     this.myForm.patchValue({myDate: null});
   }
 
