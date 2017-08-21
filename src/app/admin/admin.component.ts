@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationsService } from 'angular2-notifications';
 import { AdminService } from './admin.service';
@@ -22,7 +23,8 @@ export class AdminComponent implements OnInit {
   constructor(
     private adminService: AdminService,
     private notify: NotificationsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
@@ -52,6 +54,10 @@ export class AdminComponent implements OnInit {
 
   clearDate(): void {
     this.myForm.patchValue({myDate: null});
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

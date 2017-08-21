@@ -1,6 +1,11 @@
-<p>
-  admin works!
-</p>
+<div class="admin-menu">
+  <ul class=list-unstyled>
+    <li><a href="#">home</a></li>
+    <li><a href="#">orders</a></li>
+    <li><a href="#">options</a></li>
+    <li><a (click)="logout()">Logout</a></li>
+  </ul>
+</div>
 <form [formGroup]="myForm" novalidate>
   <my-date-picker name="mydate" [options]="myDatePickerOptions"
                   formControlName="myDate"></my-date-picker>
