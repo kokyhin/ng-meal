@@ -1,3 +1,4 @@
-<p>
-  custom-meal works!
-</p>
+<form [formGroup]="myForm" novalidate>
+  <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                  formControlName="myDate"></my-date-picker>
+</form>
