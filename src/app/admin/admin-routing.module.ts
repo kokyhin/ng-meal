@@ -1,10 +1,24 @@
+import { OrderTableComponent } from './order-table/order-table.component';
+import { CustomMealComponent } from './custom-meal/custom-meal.component';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 const adminRoutes: Routes = [
-  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard]  }
+  {
+    path: 'admin', component: AdminComponent, canActivate: [AdminGuard],
+    children: [
+      {
+        path: 'custom',
+        component: CustomMealComponent
+      },
+      {
+        path: 'orders',
+        component: OrderTableComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({
