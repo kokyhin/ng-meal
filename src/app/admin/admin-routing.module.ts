@@ -12,10 +12,6 @@ const adminRoutes: Routes = [
       {
         path: 'custom',
         component: CustomMealComponent
-      },
-      {
-        path: 'orders',
-        component: OrderTableComponent
       }
     ]
   }
