@@ -5,13 +5,11 @@ import { NgModule } from '@angular/core';
 import { MyDatePickerModule } from 'mydatepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomMealComponent } from './custom-meal/custom-meal.component';
-import { OrderTableComponent } from './order-table/order-table.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    CustomMealComponent,
-    OrderTableComponent
+    CustomMealComponent
   ],
   imports: [
     AdminRoutingModule,

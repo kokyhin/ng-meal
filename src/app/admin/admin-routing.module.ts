@@ -1,4 +1,3 @@
-import { OrderTableComponent } from './order-table/order-table.component';
 import { CustomMealComponent } from './custom-meal/custom-meal.component';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
