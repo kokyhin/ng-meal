@@ -7,7 +7,6 @@ import {IMyDpOptions} from 'mydatepicker';
   styleUrls: ['./custom-meal.component.scss']
 })
 export class CustomMealComponent implements OnInit {
-  // formBuilder: any;
   myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'dd.mm.yyyy',
     markCurrentDay: true,

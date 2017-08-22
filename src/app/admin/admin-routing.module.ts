@@ -1,3 +1,4 @@
+import { OrderTableComponent } from './order-table/order-table.component';
 import { CustomMealComponent } from './custom-meal/custom-meal.component';
 import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
@@ -8,10 +9,9 @@ const adminRoutes: Routes = [
   {
     path: 'admin', component: AdminComponent, canActivate: [AdminGuard],
     children: [
-      {
-        path: 'custom',
-        component: CustomMealComponent
-      }
+      { path: '', redirectTo: 'orders', pathMatch: 'full' },
+      { path: 'orders', component: OrderTableComponent },
+      { path: 'custom', component: CustomMealComponent }
     ]
   }
 ];
