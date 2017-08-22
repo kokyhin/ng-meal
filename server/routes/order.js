@@ -110,6 +110,9 @@ router.post('/', (req, res) => {
     let mdTime = timeZone().tz("Europe/Bucharest").get('hour');
     let orderDate = new Date(order.date) / 1000;
     let currDate = moment().startOf('day').unix();
+    if(orderDate < currDate) {
+      return res.status(400).send({message: 'Forbidden'});
+    }
     if (orderDate == currDate && mdTime > 9) {
       return res.status(400).send({message: 'You can order meal before 10 AM'});
     }
