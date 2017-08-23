@@ -15,4 +15,12 @@ export class AdminService {
     return this.http.get('/api/order/week-orders');
   }
 
+  createOptions(data) {
+    return this.http.post('/api/admin/option', data);
+  }
+
+  getOptions(date) {
+    return this.http.get('/api/admin/option', {params: {date: date}});
+  }
+
 }

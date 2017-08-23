@@ -1,0 +1,21 @@
+:host {
+  color: #fff;
+}
+
+ul {
+  li {
+    display: flex;
+    align-items: center;
+
+    .name {
+      flex: 1;
+    }
+
+    .remove {
+      &:hover {
+        color: red;
+        cursor: pointer;
+      }
+    }
+  }
+}
