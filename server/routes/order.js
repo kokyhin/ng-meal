@@ -5,6 +5,7 @@ const moment   = require('moment');
 const timeZone = require('moment-timezone');
 const _        = require('lodash');
 const Order    = require('../models/order');
+const Option   = require('../models/option');
 const User     = require('../models/user');
 
 function generateWeek() {
@@ -57,7 +58,31 @@ function populateWeek(res, req, week) {
         return day;
       } else {return day;}
     });
-    return res.status(200).send(weekPopulated);
+    Option.find({}, (err, options) => {
+      let newWeek = _.map(weekPopulated, (day, i) => {
+        let optionFound = _.find(options, (option) => {
+          return option.date / 1000 == day.date.unix();
+        });
+        if (optionFound) {
+          day.options = {
+            first: optionFound.first,
+            second: optionFound.second
+          }
+          return day;
+        } else {
+          let fridayDefault = []
+          if(i == 4) {
+            fridayDefault = ['Перцы', 'Блини с мясом']
+          }
+          day.options = {
+            first: [],
+            second: fridayDefault
+          }
+          return day;
+        }
+      });
+      return res.status(200).send(newWeek);
+    });
   });
 }
 
