@@ -7,21 +7,25 @@
     </div>
   </div>
   <div formGroupName="first">
-    <select class="form-control" *ngIf="order.options.first.length" value="{{order.order.first.option}}" formControlName="option">
-      <option *ngFor="let option of order.options.first;">{{option}}</option>
-    </select>
     <div class="input-wrapper">
-      <span>First</span>
+      <div class="name">
+        <select class="form-control" *ngIf="order.options.first.length; else defaultFirst" value="{{order.order.first.option}}" formControlName="option">
+            <option *ngFor="let option of order.options.first;">{{option}}</option>
+        </select>
+        <span><ng-template #defaultFirst>First</ng-template></span>
+      </div>
       <input type="text" id="first" class="form-control custom" type="number" min="0" value="{{order.order.first.value}}" formControlName="value">
     </div>
   </div>
   <div formGroupName="second">
-    <select class="form-control" *ngIf="order.options.second.length" value="{{order.order.second.option}}" formControlName="option">
-      <option *ngFor="let option of order.options.second;">{{option}}</option>
-    </select>
     <div class="input-wrapper">
-        <span>Second</span>
-        <input type="text" id="second" class="form-control custom" type="number" value="{{order.order.second.value}}" formControlName="value">
+      <div class="name">
+        <select class="form-control" *ngIf="order.options.second.length; else defaultSecond" value="{{order.order.second.option}}" formControlName="option">
+          <option *ngFor="let option of order.options.second;">{{option}}</option>
+        </select>
+        <span><ng-template #defaultSecond>Second</ng-template></span>
+      </div>
+      <input type="text" id="second" class="form-control custom" type="number" value="{{order.order.second.value}}" formControlName="value">
     </div>
   </div>
   <div class="price">
