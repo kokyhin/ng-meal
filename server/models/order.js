@@ -6,11 +6,11 @@ var order = new Schema({
   date: Date,
   first: {
     value: {type: Number, default: 0},
-    option: {type: String, default: 'default'}
+    option: {type: String, default: ''}
   },
   second: {
     value: {type: Number, default: 0},
-    option: {type: String, default: 'default'}
+    option: {type: String, default: ''}
   },
   total:  Number,
   user: {

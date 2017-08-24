@@ -21,11 +21,11 @@ export class OrderComponent implements OnInit {
     this.orderForm = new FormGroup({
       'first': new FormGroup({
         'value': new FormControl(this.order.order.first.value, [Validators.required, this.checkPositiveNumber]),
-        'option': new FormControl(this.order.order.first.option, [Validators.required]),
+        'option': new FormControl(this.order.order.first.option),
       }),
       'second': new FormGroup({
         'value': new FormControl(this.order.order.second.value, [Validators.required, this.checkPositiveNumber]),
-        'option': new FormControl(this.order.order.second.option, [Validators.required]),
+        'option': new FormControl(this.order.order.second.option),
       }),
     });
   }

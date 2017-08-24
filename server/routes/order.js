@@ -23,8 +23,8 @@ function generateWeek() {
 function getCurrentWeek(date) {
   let week = [];
   let orderDefault = {
-    first:  {value: 0, option: 'default'},
-    second: {value: 0, option: 'default'},
+    first:  {value: 0, option: ''},
+    second: {value: 0, option: ''},
     total: 0
   }
   for (var i = 1; i < 6; i++) {
@@ -43,7 +43,7 @@ function populateWeek(res, req, week) {
     if(!user) {return res.status(400).send({message: 'Usernot found'});}
     if(err) { return res.status(400).send({message: err.message});}
 
-    let weekPopulated = week.map((day, i) => {
+    let weekPopulated = _.map(week, (day, i) => {
       let orderFound = _.find(user.orders, (order) => {
         return order.date / 1000 == day.date.unix();
       });
@@ -59,6 +59,7 @@ function populateWeek(res, req, week) {
       } else {return day;}
     });
     Option.find({}, (err, options) => {
+      if(err) { return res.status(400).send({message: err.message});}
       let newWeek = _.map(weekPopulated, (day, i) => {
         let optionFound = _.find(options, (option) => {
           return option.date / 1000 == day.date.unix();
@@ -68,17 +69,20 @@ function populateWeek(res, req, week) {
             first: optionFound.first,
             second: optionFound.second
           }
-          return day;
+          day.order.first.option = optionFound.first[0];
+          day.order.second.option = optionFound.second[0];
+          return JSON.parse(JSON.stringify(day));
         } else {
           let fridayDefault = []
           if(i == 4) {
-            fridayDefault = ['Перцы', 'Блини с мясом']
+            fridayDefault = ['Перцы', 'Блины с мясом']
           }
           day.options = {
             first: [],
             second: fridayDefault
           }
-          return day;
+          day.order.second.option = fridayDefault[0];
+          return JSON.parse(JSON.stringify(day));
         }
       });
       return res.status(200).send(newWeek);

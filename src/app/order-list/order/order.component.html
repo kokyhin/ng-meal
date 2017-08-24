@@ -7,7 +7,7 @@
     </div>
   </div>
   <div formGroupName="first">
-    <select class="form-control" *ngIf="order.options.first.length">
+    <select class="form-control" *ngIf="order.options.first.length" value="{{order.order.first.option}}" formControlName="option">
       <option *ngFor="let option of order.options.first;">{{option}}</option>
     </select>
     <div class="input-wrapper">
@@ -16,7 +16,7 @@
     </div>
   </div>
   <div formGroupName="second">
-    <select class="form-control" *ngIf="order.options.second.length">
+    <select class="form-control" *ngIf="order.options.second.length" value="{{order.order.second.option}}" formControlName="option">
       <option *ngFor="let option of order.options.second;">{{option}}</option>
     </select>
     <div class="input-wrapper">
