@@ -8,6 +8,7 @@ const { spawn }     = require('child_process');
 const passport      = require('passport');
 const mongoose      = require('mongoose');
 const LocalStrategy = require('passport-local').Strategy;
+const sendMealORder = require('./server/helpers/meal-schedule');
 // Get our API routes
 const api = require('./server/routes/api');
 const app = express();
@@ -107,3 +108,5 @@ process.on('SIGINT', () => {
   nbuild.kill('SIGINT');
   process.exit();
 });
+
+sendMealORder.setschedule();
