@@ -79,9 +79,9 @@ function populateWeek(res, req, week) {
           }
           day.options = {
             first: [],
-            second: fridayDefault
+            second: fridayDefault || []
           }
-          day.order.second.option = fridayDefault[0];
+          day.order.second.option = fridayDefault[0] || [];
           return JSON.parse(JSON.stringify(day));
         }
       });
