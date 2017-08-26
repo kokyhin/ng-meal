@@ -4,6 +4,8 @@ const nodemailer    = require('nodemailer');
 const moment        = require('moment');
 const _             = require('lodash');
 const Orders        = require('../models/order');
+const transporter   = require('./mainConfig');
+const emails        = require('./mails');
 
 function generateOrders(date) {
   Orders.find({'date': date}, (err, orders) => {
@@ -57,34 +59,17 @@ function generateOrders(date) {
       }
     }
     plainText += 'Итого: ' + total.total;
-    console.log(plainText);
     sendLetter(plainText);
   });
 }
 
-function sendLetter(text) {
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.MAIL_ACC,
-      pass: process.env.MAIL_PASS
-    }
-  });
-
-  var mailOptions = {
-    from: '"FusionWorks Meal 🍔" <meal@fusionworks.md>',
-    to: 'anasonov@fusionworks.md',
-    subject: 'Заказы',
-    text: text,
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
+function sendLetter(content) {
+  transporter.sendMail(emails.schedule(content), (error, info) => {
     if (error) {
       return console.log(error);
     }
   });
 }
-
 
 module.exports = {
   setschedule: () => {

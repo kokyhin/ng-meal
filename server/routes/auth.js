@@ -5,9 +5,11 @@ const User     = require('../models/user')
 const passport = require('passport');
 const crypto   = require('crypto');
 const nodemailer = require('nodemailer');
+const transporter = require('../helpers/mainConfig');
+const emails      = require('../helpers/mails');
 
 generateRandomToken = (len) => {
-  return crypto.randomBytes(Math.ceil(len/2)).toString('hex') .slice(0,len);
+  return crypto.randomBytes(Math.ceil(len/2)).toString('hex').slice(0,len);
 };
 
 router.route('/register').post((req,res,next) => {
@@ -28,19 +30,39 @@ router.route('/register').post((req,res,next) => {
       username: mail.split('@')[0],
       email: mail,
       password: req.body.password,
+      token: generateRandomToken(20),
     }), req.body.password, (err, newUser) => {
       if (err) {return res.status(400).send({message: err.message});}
-      return res.status(200).send({message: 'User was successfully registered'});
+      let resetTokenLink = process.env.APP_URL + 'signin/?activation=' + newUser.token;
+      transporter.sendMail(emails.createUser(newUser.email, resetTokenLink), (error, info) => {
+        if (error) {return res.status(400).send({message: error.message}); }
+        return res.status(200).send({message: `On your email: ${newUser.email} was send instruction`});
+      });
+
     });
   });
 });
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
   User.findOne({'_id': req.user._id}, (err, user) => {
-    if (err) {
-      return res.status(400).send({message: err.message});
+    if (err) { return res.status(400).send({message: err.message}); }
+    if(!user.active) {
+      if (!req.body.token) {
+        return res.status(400).send({message: 'Your account is deactivated, please follow link that you received in email'});
+      }
+      if (req.body.token == user.token) {
+        user.token = undefined;
+        user.active = true;
+        user.save((err, updatedUsed) => {
+          if (err) { return res.status(400).send({message: err.message}); }
+          return res.send(updatedUsed);
+        })
+      } else {
+        return res.status(400).send({message: 'Wrong token'});
+      }
+    } else {
+      return res.send(user);
     }
-    res.send(user);
   });
 });
 
@@ -53,28 +75,13 @@ router.post('/reset-password', (req, res) =>{
   User.findOne({ email: req.body.email}, (err, user) => {
     if (!user) { return res.status(404).send({message: 'User not found'}); }
     if(err) { return res.status(400).send({message: err.message}); }
-    user.resetPasswordToken = generateRandomToken(20);
-    user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+    user.token = generateRandomToken(20);
+    user.tokenExpires = Date.now() + 3600000; // 1 hour
     user.save((err) => {
       if(err) { return res.status(400).send({message: err.message}); }
-      let resetTokenLink = process.env.APP_URL + 'reset-password/?reset=' + user.resetPasswordToken;
+      let resetTokenLink = process.env.APP_URL + 'reset-password/?reset=' + user.token;
 
-      let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.MAIL_ACC,
-          pass: process.env.MAIL_PASS
-        }
-      });
-
-      let mailOptions = {
-        from: '"FusionWorks Meal 🍔" <meal@fusionworks.md>',
-        to: user.email,
-        subject: 'Meal password reset',
-        text: `Please folow this URL + ${resetTokenLink} to reset your password`,
-      };
-
-      transporter.sendMail(mailOptions, (error, info) => {
+      transporter.sendMail(emails.resetPassword(user.email, resetTokenLink), (error, info) => {
         if (error) {return res.status(400).send({message: error.message}); }
         return res.status(200).send({message: `On your email: ${req.body.email} was send reset password instruction`});
       });
@@ -85,13 +92,13 @@ router.post('/reset-password', (req, res) =>{
 router.put('/update-password', (req, res) =>{
   const newPass = req.body.password;
   const token   = req.body.token;
-  User.findOne({resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() }}, (err, user) => {
+  User.findOne({token: token, tokenExpires: { $gt: Date.now() }}, (err, user) => {
     if(err) { return res.status(200).send({message: err.message})};
     if(!user) {return res.status(404).send({message: 'User not found or token expired, please reset password again'})};
 
     user.password = newPass;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+    user.token = undefined;
+    user.tokenExpires = undefined;
 
     user.save((err) =>{
       if(err) { return res.status(200).send({message: err.message})};

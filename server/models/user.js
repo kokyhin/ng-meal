@@ -9,8 +9,9 @@ var User = new Schema({
   email:      { type: String, required: true, unique: true},
   password:   { type: String},
   admin:      {type: Boolean, default: false},
-  resetPasswordToken: String,
-  resetPasswordExpires: Date,
+  active:     {type: Boolean, default: false},
+  token: String,
+  tokenExpires: Date,
   orders: [{
     type: Schema.ObjectId,
     ref: 'orders'
