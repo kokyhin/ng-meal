@@ -1,3 +1,6 @@
+import { NotificationsService } from 'angular2-notifications';
+import { Response } from '@angular/http';
+import { AdminService } from './../admin.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderTableComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private adminService: AdminService,
+    private notify: NotificationsService,
+  ) { }
 
   ngOnInit() {
+    this.getWeek();
   }
 
+  getWeek() {
+    this.adminService.getOrdersWeek().subscribe(
+      (response: Response) => { console.log(response.json()); },
+      (error) => { this.notify.error(error.json().message); }
+    );
+  }
 }
