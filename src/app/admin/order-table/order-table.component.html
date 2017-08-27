@@ -9,10 +9,23 @@
   *ngFor="let day of week; let i = index;"
   class="orders-table {{activeDay == i ? 'active' : ''}}">
   <div *ngIf="!day.length; else ordersList" class="empty">There is no orders</div>
-  <div #ordersList class="order-item {{order.payed ? 'payed' : ''}}" *ngFor="let order of day">
-    <div>{{order.user}}</div>
-    <div>{{order.total}}</div>
-    <div><input type="checkbox" [checked]="order.payed" (change)="updatePayed(order)"></div>
-    <div (click)="openOrder(order)"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
-  </div>
+  <ng-template #ordersList>
+    <div class="order-item">
+      <div>Name</div>
+      <div>Total</div>
+      <div></div><div></div>
+    </div>
+    <div class="order-item {{order.payed ? 'payed' : ''}}" *ngFor="let order of day">
+      <div>{{order.user}}</div>
+      <div>{{order.total}}</div>
+      <div><input type="checkbox" [checked]="order.payed" (change)="updatePayed(order)"></div>
+      <div (click)="openOrder(order)"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
+    </div>
+  </ng-template>
+</div>
+<div *ngFor="let total of totals; let i = index" class="total-row {{activeDay == i ? 'active' : ''}}">
+  <div>Total</div>
+  <div>{{total.total}}</div>
+  <div>{{total.first}}</div>
+  <div>{{total.second}}</div>
 </div>

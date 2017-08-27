@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class OrderTableComponent implements OnInit {
   week: any;
   days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+  totals = [];
   activeDay = 0;
   constructor(
     private adminService: AdminService,
@@ -37,9 +38,31 @@ export class OrderTableComponent implements OnInit {
 
   getWeek() {
     this.adminService.getOrdersWeek().subscribe(
-      (response: Response) => { this.week = response.json(); console.log(this.week); },
+      (response: Response) => {
+        this.week = response.json();
+        this.getTotals(response.json());
+      },
       (error) => { this.notify.error(error.json().message); }
     );
+  }
+
+  getTotals(week) {
+    const totals = [];
+    for (const day of week) {
+      const totalDay = {
+        total: 0,
+        first: 0,
+        second: 0
+      };
+      for (const order of day) {
+        totalDay.total += order.total;
+        totalDay.first += order.first.value;
+        totalDay.second += order.second.value;
+      }
+      totals.push(totalDay);
+    }
+    this.totals = totals;
+    console.log(this.totals);
   }
 
   openOrder(order) {

@@ -50,3 +50,14 @@
     font-style: italic;
   }
 }
+
+.total-row {
+  display: none;
+  background-color: #55d9f2;
+  &.active {
+    display: flex;
+  }
+  div {
+    flex: 1;
+  }
+}
