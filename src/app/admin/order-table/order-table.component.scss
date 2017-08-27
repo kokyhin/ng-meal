@@ -1,0 +1,52 @@
+:host {
+  color: #fff;
+}
+
+.tab-nav {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255,255,255, 0.4);
+
+  .nav-item {
+    flex: 1;
+    line-height: 50px;
+    text-align: center;
+
+    &:hover, &.active {
+      cursor: pointer;
+      background-color: #7fd344;
+      color: #fff;
+    }
+  }
+}
+
+.orders-table {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
+  .order-item {
+    display: flex;
+    line-height: 30px;
+
+    &.payed {
+      background-color: #7fd344;
+    }
+
+    div {
+      flex: 1;
+    }
+
+    &:hover {
+      background-color: rgba(255,255,255, 0.4);
+      cursor: pointer;
+    }
+  }
+
+  .empty {
+    text-align: center;
+    font-style: italic;
+  }
+}

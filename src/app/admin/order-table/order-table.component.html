@@ -1,3 +1,18 @@
-<p>
-  order-table works!
-</p>
+<div class="tab-nav">
+  <div
+    *ngFor="let day of days; let i = index;"
+    (click)="onDayClick(i)"
+    class="nav-item {{activeDay == i ? 'active' : ''}}">
+      {{day}}</div>
+</div>
+<div
+  *ngFor="let day of week; let i = index;"
+  class="orders-table {{activeDay == i ? 'active' : ''}}">
+  <div *ngIf="!day.length; else ordersList" class="empty">There is no orders</div>
+  <div #ordersList class="order-item {{order.payed ? 'payed' : ''}}" *ngFor="let order of day">
+    <div>{{order.user}}</div>
+    <div>{{order.total}}</div>
+    <div><input type="checkbox" [checked]="order.payed" (change)="updatePayed(order)"></div>
+    <div (click)="openOrder(order)"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
+  </div>
+</div>

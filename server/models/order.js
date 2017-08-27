@@ -16,7 +16,8 @@ var order = new Schema({
   user: {
     type: Schema.ObjectId,
     ref: 'users'
-  }
+  },
+  payed: {type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('orders', order);

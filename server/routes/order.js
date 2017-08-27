@@ -117,7 +117,9 @@ router.get('/week-orders', (req, res) => {
           total: order.total,
           user: order.user.username,
           first: order.first,
-          second: order.second
+          second: order.second,
+          payed: order.payed,
+          date: order.date
         }
       })
       weekOrders.push(dayOrders);

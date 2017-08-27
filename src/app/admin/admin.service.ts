@@ -23,4 +23,8 @@ export class AdminService {
     return this.http.get('/api/admin/option', {params: {date: date}});
   }
 
+  updateOrder(order) {
+    return this.http.post('/api/admin/order-update', order);
+  }
+
 }

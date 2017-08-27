@@ -3,6 +3,7 @@ const router   = express.Router();
 const mongoose = require('mongoose');
 const moment   = require('moment');
 const Option   = require('../models/option');
+const Order    = require('../models/order');
 
 router.post('/option', (req, res) => {
   let data = {
@@ -32,6 +33,14 @@ router.get('/option', (req, res) => {
     }
     return res.status(200).send(option);
   });
+});
+
+router.post('/order-update', (req, res) => {
+  delete req.body.user;
+  Order.findOneAndUpdate({'_id': req.body._id}, req.body, (err, order) => {
+    if(err) { return res.status(400).send({message: err.message});}
+    return res.status(200).send('Updated');
+  })
 });
 
 module.exports = router;
