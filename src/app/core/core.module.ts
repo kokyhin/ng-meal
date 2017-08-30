@@ -8,8 +8,6 @@ import { AuthGuard } from './../auth/auth-guard.service';
 import { AuthService } from './../auth/auth.service';
 import { AppRoutingModule } from './../app-routing.module';
 import { NgModule } from '@angular/core';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { FabButtonComponent } from './fab-button/fab-button.component';
 
@@ -18,11 +16,9 @@ import { FabButtonComponent } from './fab-button/fab-button.component';
     AppRoutingModule,
     SimpleNotificationsModule.forRoot()
   ],
-  declarations: [FooterComponent, HeaderComponent, PreloaderComponent, FabButtonComponent],
+  declarations: [PreloaderComponent, FabButtonComponent],
   exports: [
     AppRoutingModule,
-    FooterComponent,
-    HeaderComponent,
     SimpleNotificationsModule,
     PreloaderComponent,
     FabButtonComponent,
