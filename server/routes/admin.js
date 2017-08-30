@@ -25,7 +25,7 @@ router.post('/option', (req, res) => {
 });
 
 router.get('/option', (req, res) => {
-  let date = moment(req.query.date).startOf('day').toISOString();
+  let date = moment(new Date(req.query.date)).startOf('day').toISOString();
   Option.findOne({'date': date}, (err, option) => {
     if(err) { return res.status(400).send({message: err.message});}
     if(!option) {
