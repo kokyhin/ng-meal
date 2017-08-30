@@ -78,7 +78,7 @@ module.exports = {
     ruleEvening.hour = 18;
     ruleEvening.minute = 1;
     let sendEvening = schedule.scheduleJob(ruleEvening, () =>{
-      generateOrders(moment().startOf('day').toISOString());
+      generateOrders(moment().add(1, 'days').startOf('day').toISOString());
     });
 
     let ruleMorning = new schedule.RecurrenceRule();
