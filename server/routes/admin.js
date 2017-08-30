@@ -7,7 +7,7 @@ const Order    = require('../models/order');
 
 router.post('/option', (req, res) => {
   let data = {
-    date: moment(req.body.day).startOf('day').toISOString(),
+    date: moment(new Date(req.body.day)).startOf('day').toISOString(),
     first: req.body.first,
     second: req.body.second
   }
