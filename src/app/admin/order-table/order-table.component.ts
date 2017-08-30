@@ -62,7 +62,6 @@ export class OrderTableComponent implements OnInit {
       totals.push(totalDay);
     }
     this.totals = totals;
-    console.log(this.totals);
   }
 
   openOrder(order) {
