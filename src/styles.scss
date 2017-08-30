@@ -70,6 +70,11 @@ app-signin, app-signup, app-forgot, app-reset-passwod {
         right: 30px;
         bottom: -25px;
         color: #F44336;
+
+        @include breakpoint(xs) {
+          bottom: -21px;
+          font-size: 14px;
+        }
       }
     }
 
@@ -97,6 +102,7 @@ app-signin, app-signup, app-forgot, app-reset-passwod {
       color: #7fd344;
       font-weight: bold;
       text-transform: uppercase;
+      padding: 0;
       transition: all 0.3s ease-out;
 
       @include breakpoint(xs) {
