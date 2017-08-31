@@ -35,6 +35,13 @@
       background-color: #7fd344;
     }
 
+    &.head {
+      &:hover {
+        background: transparent;
+        cursor: default;
+      }
+    }
+
     div {
       flex: 1;
     }
@@ -60,4 +67,8 @@
   div {
     flex: 1;
   }
+}
+
+.remodal {
+  max-width: 400px;
 }

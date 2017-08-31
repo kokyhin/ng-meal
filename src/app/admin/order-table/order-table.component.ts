@@ -2,6 +2,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { Response } from '@angular/http';
 import { AdminService } from './../admin.service';
 import { Component, OnInit } from '@angular/core';
+import 'remodal';
 
 @Component({
   selector: 'app-order-table',
@@ -13,6 +14,18 @@ export class OrderTableComponent implements OnInit {
   days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
   totals = [];
   activeDay = 0;
+  orderView = {
+    user: '',
+    first: {
+      value: 0,
+      option: ''
+    },
+    second: {
+      value: 0,
+      option: ''
+    },
+    total: 0
+  };
   constructor(
     private adminService: AdminService,
     private notify: NotificationsService,
@@ -65,7 +78,7 @@ export class OrderTableComponent implements OnInit {
   }
 
   openOrder(order) {
-    console.log('Open order clicked');
+    this.orderView = order;
   }
 
   updatePayed(order) {

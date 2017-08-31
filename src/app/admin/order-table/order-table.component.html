@@ -10,7 +10,7 @@
   class="orders-table {{activeDay == i ? 'active' : ''}}">
   <div *ngIf="!day.length; else ordersList" class="empty">There is no orders</div>
   <ng-template #ordersList>
-    <div class="order-item">
+    <div class="order-item head">
       <div>Name</div>
       <div>Total</div>
       <div></div><div></div>
@@ -19,13 +19,24 @@
       <div>{{order.user}}</div>
       <div>{{order.total}}</div>
       <div><input type="checkbox" [checked]="order.payed" (change)="updatePayed(order)"></div>
-      <div (click)="openOrder(order)"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
+      <div (click)="openOrder(order)" data-remodal-target="orderModal"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
     </div>
   </ng-template>
 </div>
 <div *ngFor="let total of totals; let i = index" class="total-row {{activeDay == i ? 'active' : ''}}">
   <div>Total</div>
   <div>{{total.total}}</div>
-  <div>{{total.first}}</div>
-  <div>{{total.second}}</div>
+  <div></div>
+  <div></div>
+</div>
+
+<div class="remodal" data-remodal-id="orderModal" data-remodal-options="hashTracking: false">
+  <button data-remodal-action="close" class="remodal-close"></button>
+  <p>{{orderView.user}}</p>
+  <p>First: {{orderView.first.option}} {{orderView.first.value}}</p>
+  <p>Second: {{orderView.second.option}} {{orderView.second.value}}</p>
+  <p>Total: {{orderView.total}}</p>
+  <br>
+  <!-- <button data-remodal-action="cancel" class="remodal-cancel">Cancel</button>
+  <button data-remodal-action="confirm" class="remodal-confirm">OK</button> -->
 </div>
