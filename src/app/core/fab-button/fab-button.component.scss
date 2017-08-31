@@ -41,6 +41,15 @@ $speed: 0.5;
         cursor: pointer;
       }
 
+      &.disabled {
+        background-color: rgba(255,255,255, 0.5);
+
+        &:hover {
+          cursor: not-allowed;
+          color: #7fd344;
+        }
+      }
+
       &.close {
         flex-grow: 1;
         opacity: 1;
