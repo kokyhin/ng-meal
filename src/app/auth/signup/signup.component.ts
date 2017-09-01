@@ -1,3 +1,4 @@
+import { PreloaderService } from './../../core/preloader/preloader.service';
 import { Router } from '@angular/router';
 import { Response } from '@angular/http';
 import { NotificationsService } from 'angular2-notifications';
@@ -16,7 +17,9 @@ export class SignupComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private notify: NotificationsService,
-    private router: Router
+    private router: Router,
+    private preload: PreloaderService
+
   ) { }
 
   ngOnInit() {
@@ -48,13 +51,18 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
+    this.preload.state.next(true);
     this.authService.register(this.signupForm.value).subscribe(
       (response: Response) => {
         this.notify.success(response.json().message);
         this.signupForm.reset();
+        this.preload.state.next(false);
         this.router.navigate(['/signin']);
       },
-      (error) => { this.notify.error(error.json().message); }
+      (error) => {
+        this.notify.error(error.json().message);
+        this.preload.state.next(false);
+      }
     );
   }
 }
