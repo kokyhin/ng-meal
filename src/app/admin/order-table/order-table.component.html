@@ -13,20 +13,25 @@
     <div class="order-item head">
       <div>Name</div>
       <div>Total</div>
-      <div></div><div></div>
+      <div>First</div>
+      <div>Second</div>
+      <div>Payed</div>
     </div>
     <div class="order-item {{order.payed ? 'payed' : ''}}" *ngFor="let order of day">
       <div>{{order.user}}</div>
       <div>{{order.total}}</div>
+      <div>{{order.first.value}}</div>
+      <div>{{order.second.value}}</div>
       <div><input type="checkbox" [checked]="order.payed" (change)="updatePayed(order)"></div>
-      <div (click)="openOrder(order)" data-remodal-target="orderModal"><i class="fa fa-info-circle" aria-hidden="true"></i></div>
+      <!-- <div (click)="openOrder(order)" data-remodal-target="orderModal"><i class="fa fa-info-circle" aria-hidden="true"></i></div> -->
     </div>
   </ng-template>
 </div>
 <div *ngFor="let total of totals; let i = index" class="total-row {{activeDay == i ? 'active' : ''}}">
   <div>Total</div>
   <div>{{total.total}}</div>
-  <div></div>
+  <div>{{total.first}}</div>
+  <div>{{total.second}}</div>
   <div></div>
 </div>
 
