@@ -13,7 +13,7 @@ module.exports = {
       from: '"FusionWorks Meal 🍔" <meal@fusionworks.md>',
       to: email,
       subject: 'Meal password reset',
-      text: `Please follow this URL + ${link} to reset your password`,
+      text: `Please follow this URL ${link} to reset your password`,
     };
   },
 
