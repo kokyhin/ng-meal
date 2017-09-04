@@ -4,7 +4,7 @@ module.exports = {
       from: '"FusionWorks Meal 🍔" <meal@fusionworks.md>',
       to: email,
       subject: 'Meal account activation',
-      text: `Please folow this URL + ${link} to activate account`,
+      text: `Please follow this <a href="${link}">URL</a> to activate account`,
     };
   },
 
@@ -13,7 +13,7 @@ module.exports = {
       from: '"FusionWorks Meal 🍔" <meal@fusionworks.md>',
       to: email,
       subject: 'Meal password reset',
-      text: `Please folow this URL + ${link} to reset your password`,
+      text: `Please follow this <a href="${link}">URL</a> to reset your password`,
     };
   },
 
