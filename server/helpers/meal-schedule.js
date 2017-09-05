@@ -63,7 +63,7 @@ function generateOrders(date) {
     sendLetter(plainText);
     bytehand.send({
       to: process.env.PHONE,
-      from: 'Fusionworks',
+      from: 'Meal',
       text: plainText
     }, function(error, response){
       if(error ) console.log(error);
