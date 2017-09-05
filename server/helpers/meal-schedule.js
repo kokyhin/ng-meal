@@ -59,7 +59,7 @@ function generateOrders(date) {
         }
       }
     }
-    plainText += 'Итого: ' + total.total;
+    plainText += 'Итого: ' + total.total + ' лей';
     sendLetter(plainText);
     bytehand.send({
       to: process.env.PHONE,
