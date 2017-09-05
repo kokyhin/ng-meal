@@ -37,7 +37,7 @@ function generateOrders(date) {
         }
       }
     });
-    let plainText = '';
+    let plainText = '\n';
 
     if (total.first > 0) {
       plainText += total.first + ' первых \n';
