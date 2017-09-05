@@ -36,8 +36,11 @@ export class OrderComponent implements OnInit {
 
   onSubmit(order) {
     if (!this.orderForm.valid) { return; };
+    const formValue = this.orderForm.value;
+    if (formValue.first.value === 0) { formValue.first.option = ''; }
+    if (formValue.second.value === 0) { formValue.second.option = ''; }
     const computedOrder = order;
-    computedOrder.order = this.orderForm.value;
+    computedOrder.order = formValue;
     this.orderService.save(computedOrder).subscribe(
       (response: Response) => {
         this.order._id = response.json()._id;
