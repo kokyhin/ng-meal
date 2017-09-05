@@ -9,7 +9,10 @@ module.exports = {
         PRICE_FIRST: 10,
         PRICE_SECOND: 30,
         APP_URL: 'http://meal.fusionworks.md/',
-        MAIL_ACC: 'fwmeal@gmail.com',
+        SMS_ID: '29225',
+        // MAIL_ACC: 'mail',
+        // PHONE: 'phone',
+        // SMS_KEY: 'key'
         // MAIL_PASS: 'pass'
       }
     }

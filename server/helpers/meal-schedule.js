@@ -6,7 +6,7 @@ const _             = require('lodash');
 const Orders        = require('../models/order');
 const transporter   = require('./mainConfig');
 const emails        = require('./mails');
-const bytehand      = require("./bytehand")({id: '29225', key: '5E9E596ADA4891F9'});
+const bytehand      = require("./bytehand")({id: process.env.SMS_ID, key: process.env.SMS_KEY});
 
 function generateOrders(date) {
   Orders.find({'date': date}, (err, orders) => {
@@ -62,7 +62,7 @@ function generateOrders(date) {
     plainText += 'Итого: ' + total.total;
     sendLetter(plainText);
     bytehand.send({
-      to: '+37379470147',
+      to: process.env.PHONE,
       from: 'Fusionworks',
       text: plainText
     }, function(error, response){
