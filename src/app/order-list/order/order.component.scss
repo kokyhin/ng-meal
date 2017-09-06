@@ -32,12 +32,16 @@ input {
   align-items: center;
   margin-bottom: 15px;
 
+  @include breakpoint(book) {
+    margin-bottom: 10px;
+  }
+
   .name {
     flex: 1;
     span {
       font-size: 20px;
 
-      @include breakpoint(md) {
+      @include breakpoint(book) {
         font-size: 14px;
       }
     }
@@ -60,7 +64,7 @@ input {
     color: #fff;
   }
 
-  @include breakpoint(md) {
+  @include breakpoint(book) {
     font-size: 16px;
     line-height: 40px;
   }
@@ -72,8 +76,9 @@ input {
   text-align: right;
   border-top: 2px solid rgba(65, 64, 69, 0.05);
 
-  @include breakpoint(md) {
+  @include breakpoint(book) {
     font-size: 16px;
+    padding: 10px 0 15px;
   }
 
   @include breakpoint(sm) {
@@ -84,6 +89,10 @@ input {
 .date-wrapper {
   padding: 25px 0 20px;
 
+  @include breakpoint(book) {
+    padding: 10px 0;
+  }
+
   .week-day {
     font-size: 20px;
     font-weight: bold;
@@ -91,7 +100,7 @@ input {
     text-transform: uppercase;
     margin-bottom: 10px;
 
-    @include breakpoint(md) {
+    @include breakpoint(book) {
       font-size: 16px;
       margin-bottom: 0;
     }
@@ -107,7 +116,7 @@ input {
     display: flex;
     align-items: center;
 
-    @include breakpoint(md) {
+    @include breakpoint(book) {
       font-size: 14px;
     }
 

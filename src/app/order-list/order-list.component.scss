@@ -16,7 +16,7 @@
   float: left;
   padding: 10px 25px;
 
-  @include breakpoint(md) {
+  @include breakpoint(book) {
     padding: 10px;
   }
 
@@ -35,6 +35,10 @@
     background-color: transparent;
     color: #fff;
     padding: 0;
+  }
+
+  @include breakpoint(book) {
+    padding: 10px 0;
   }
 }
 
