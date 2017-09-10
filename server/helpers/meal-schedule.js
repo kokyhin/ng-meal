@@ -63,7 +63,7 @@ function generateOrders(date) {
     let date = new Date();
     let day = date.getDay();
     let hour = date.getHours();
-    if (day == 6 || day == 5 && hour > 13) {
+    if (day == 6 || day == 5 && hour > 13 || day == 0 && hour < 13) {
       return
     }
     sendLetter(plainText);
