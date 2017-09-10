@@ -60,6 +60,12 @@ function generateOrders(date) {
       }
     }
     plainText += 'Итого: ' + total.total + ' лей';
+    let date = new Date();
+    let day = date.getDay();
+    let hour = date.getHours();
+    if (day == 6 || day == 5 && hour > 13) {
+      return
+    }
     sendLetter(plainText);
     bytehand.send({
       to: process.env.PHONE,
