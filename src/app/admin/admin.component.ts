@@ -8,10 +8,4 @@ import { Component } from '@angular/core';
 })
 export class AdminComponent {
 
-  constructor( private authService: AuthService ) { }
-
-  logout() {
-    this.authService.logout();
-  }
-
 }

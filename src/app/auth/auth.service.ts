@@ -5,10 +5,19 @@ import 'rxjs/Rx';
 
 @Injectable()
 export class AuthService {
+  public adminState: boolean;
   constructor(
     private http: Http,
     private router: Router
   ) { }
+
+  checkIfAdmin() {
+    return this.adminState;
+  }
+
+  setAdmin(state) {
+    this.adminState = state;
+  }
 
   register(user: Object) {
     return this.http.post('/api/auth/register', user);

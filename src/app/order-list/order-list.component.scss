@@ -3,7 +3,7 @@
 :host {
   display: flex;
   align-items: center;
-  height: 100vh;
+  height: 100%;
 
   @include breakpoint(sm) {
     height: auto;

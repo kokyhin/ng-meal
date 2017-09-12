@@ -1,4 +1,12 @@
 <div class="main-wrapper">
+  <div *ngIf="isAdmin" class="admin-menu">
+    <ul class=list-unstyled>
+      <li><a routerLink="">home</a></li>
+      <li><a routerLink="admin">orders</a></li>
+      <li><a routerLink="admin/custom">options</a></li>
+      <li><a (click)="logout()">Logout</a></li>
+    </ul>
+  </div>
   <div class="main-content">
     <router-outlet class="main-content"></router-outlet>
   </div>
