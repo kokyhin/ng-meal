@@ -75,14 +75,12 @@ function populateWeek(res, req, week) {
         } else {
           let fridayDefault = []
           if(i == 4) {
-            fridayDefault = ['Перцы', 'Блины с мясом']
+            fridayDefault = ['Перцы', 'Блины с мясом'];
+            day.order.second.option = fridayDefault[0]
           }
           day.options = {
             first: [],
             second: fridayDefault || []
-          }
-          if (day.order.second.option && !day.order.second.option.length && fridayDefault[0] ) {
-            day.order.second.option = fridayDefault[0]
           }
           return JSON.parse(JSON.stringify(day));
         }
