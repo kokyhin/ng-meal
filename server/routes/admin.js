@@ -14,16 +14,22 @@ router.post('/option', (req, res) => {
     first: req.body.first,
     second: req.body.second
   }
-  Option.findOneAndUpdate({'date': data.date}, data, {new: true}, (err, option) => {
+  Option.findOneAndUpdate({'date': data.date}, data, {upsert: true}, (err, option) => {
     if(err) { return res.status(400).send({message: err.message});}
-    if(!option) {
-      Option.create(data, (err, newOption) => {
-        if(err) { return res.status(400).send({message: err.message});}
-        return res.status(200).send({message: 'Option was created'});
+    Order.find({'date': data.date}).populate('user').exec((err, orders) => {
+      if(err) { return res.status(400).send({message: err.message});}
+      if(!orders.length) return res.status(200).send({message: 'Success'});
+      let mails = [];
+      let message = '';
+      let date = moment(data.date).locale('ru').format('ll');
+      orders.forEach(order => {mails.push(order.user.email)});
+      if(data.first.length) { message += 'Первое на выбор: ' + data.first.toString() + '\n'; };
+      if(data.second.length) { message += 'Второе на выбор: ' + data.second.toString() + '\n'; };
+      transporter.sendMail(emails.menuChanged(mails.toString(), message, date), (err, info) => {
+        if (err) { return res.status(400).send({message: `Option was created but mail isn't sent`}); }
+        return res.status(200).send({message: 'Success'});
       });
-    } else {
-      return res.status(200).send({message: 'Option was updated'});
-    }
+    });
   })
 });
 

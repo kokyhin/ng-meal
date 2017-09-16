@@ -33,5 +33,14 @@ module.exports = {
       subject: 'Уведомление ⚠️',
       text: content,
     }
+  },
+
+  menuChanged: (emails, content, date) => {
+    return {
+      from: '"FusionWorks Meal 🍔" <meal@fusionworks.md>',
+      to: emails,
+      subject: 'Изменения в меню на '+ date +'  ⚠️',
+      text: content,
+    }
   }
 }

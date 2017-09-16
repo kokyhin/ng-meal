@@ -1,3 +1,4 @@
+import { PreloaderService } from './../../core/preloader/preloader.service';
 import { AdminService } from './../admin.service';
 import { NotificationsService } from 'angular2-notifications';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -24,7 +25,8 @@ export class CustomMealComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private notify: NotificationsService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private preload: PreloaderService
   ) { }
 
   ngOnInit() {
@@ -75,9 +77,16 @@ export class CustomMealComponent implements OnInit {
       first: this.first,
       second: this.second
     };
+    this.preload.state.next(true);
     this.adminService.createOptions(options).subscribe(
-      (response: Response) => { this.notify.success(response.json().message); },
-      (error) => { this.notify.error(error.json().message); }
+      (response: Response) => {
+        this.preload.state.next(false);
+        this.notify.success(response.json().message);
+      },
+      (error) => {
+        this.preload.state.next(false);
+        this.notify.error(error.json().message);
+      }
     );
   }
 
