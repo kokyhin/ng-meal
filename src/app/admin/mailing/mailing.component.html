@@ -1,0 +1,5 @@
+
+<form [formGroup]="notificationForm" (ngSubmit)="onSubmit()">
+  <textarea class="form-control" formControlName="message" rows="5"></textarea>
+  <button class="btn btn-login" type="submit" [disabled]="!notificationForm.valid">SEND</button>
+</form>

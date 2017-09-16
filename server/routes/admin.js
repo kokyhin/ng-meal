@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const moment   = require('moment');
 const Option   = require('../models/option');
 const Order    = require('../models/order');
+const Users    = require('../models/user');
+const emails   = require('../helpers/mails');
+const transporter = require('../helpers/mainConfig');
 
 router.post('/option', (req, res) => {
   let data = {
@@ -41,6 +44,21 @@ router.post('/order-update', (req, res) => {
     if(err) { return res.status(400).send({message: err.message});}
     return res.status(200).send('Updated');
   })
+});
+
+router.post('/mailing', (req, res) => {
+  Users.find({}, (err, users) => {
+    if(err) return res.status(400).send({message: error});
+    let emailsArr = [];
+    users.forEach( user => { emailsArr.push(user.email)});
+    let stringOfEmails = emailsArr.toString();
+    transporter.sendMail(emails.notification(stringOfEmails, req.body.message), (error, info) => {
+      if (error) {
+        return res.status(400).send({message: error});
+      }
+      return res.status(200).send('Send');
+    });
+  });
 });
 
 module.exports = router;

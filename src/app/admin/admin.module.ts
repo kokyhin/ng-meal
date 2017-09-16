@@ -6,12 +6,14 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomMealComponent } from './custom-meal/custom-meal.component';
 import { OrderTableComponent } from './order-table/order-table.component';
+import { MailingComponent } from './mailing/mailing.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     CustomMealComponent,
-    OrderTableComponent
+    OrderTableComponent,
+    MailingComponent
   ],
   imports: [
     AdminRoutingModule,

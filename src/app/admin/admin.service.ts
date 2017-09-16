@@ -27,4 +27,8 @@ export class AdminService {
     return this.http.post('/api/admin/order-update', order);
   }
 
+  notifyUsers(message) {
+    return this.http.post('/api/admin/mailing', message);
+  }
+
 }

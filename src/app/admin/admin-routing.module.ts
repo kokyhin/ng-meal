@@ -1,3 +1,4 @@
+import { MailingComponent } from './mailing/mailing.component';
 import { OrderTableComponent } from './order-table/order-table.component';
 import { CustomMealComponent } from './custom-meal/custom-meal.component';
 import { AdminGuard } from './admin-guard.service';
@@ -11,7 +12,8 @@ const adminRoutes: Routes = [
     children: [
       { path: '', redirectTo: 'orders', pathMatch: 'full' },
       { path: 'orders', component: OrderTableComponent },
-      { path: 'custom', component: CustomMealComponent }
+      { path: 'custom', component: CustomMealComponent },
+      { path: 'mailing', component: MailingComponent }
     ]
   }
 ];

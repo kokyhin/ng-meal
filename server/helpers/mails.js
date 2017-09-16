@@ -24,5 +24,14 @@ module.exports = {
       subject: 'Заказы',
       text: content,
     }
+  },
+
+  notification: (emails, content) => {
+    return {
+      from: '"FusionWorks Meal 🍔" <meal@fusionworks.md>',
+      to: emails,
+      subject: 'Уведомление ⚠️',
+      text: content,
+    }
   }
 }
