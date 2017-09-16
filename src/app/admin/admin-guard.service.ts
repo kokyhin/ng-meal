@@ -11,7 +11,10 @@ export class AdminGuard implements CanActivate {
   ) {}
   canActivate() {
     return this.authService.isAuth().map(res => {
-      if (res.json().admin) { return true; } else {
+      if (res.json().admin) {
+        this.authService.setAdmin(true);
+        return true;
+      } else {
         this.router.navigate(['']);
         return false;
       }
