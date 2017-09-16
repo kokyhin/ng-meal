@@ -70,7 +70,6 @@ export class CustomMealComponent implements OnInit {
   }
 
   saveOptions() {
-    if (!this.first.length && !this.second.length) { return this.notify.error('Fill at least one option'); }
     const date = this.myForm.getRawValue().myDate.date;
     const options = {
       day: `${date.month}/${date.day}/${date.year}`,
