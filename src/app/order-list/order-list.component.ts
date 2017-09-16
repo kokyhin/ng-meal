@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderListComponent implements OnInit {
   orders: Object;
-
+  settings: Object;
   constructor(
     private preload: PreloaderService,
     private orderService: OrderService,
@@ -20,6 +20,21 @@ export class OrderListComponent implements OnInit {
 
   ngOnInit() {
     this.getWeek();
+    const activeDay = new Date().getDay() - 1;
+    this.settings = {
+      items: 1,
+      dots: false,
+      navigation: false,
+      startPosition: 3,
+      responsive: {
+        0: {
+          items: 1
+        },
+        992: {
+          items: 5
+        }
+      }
+    };
   }
 
   preloadClick() {

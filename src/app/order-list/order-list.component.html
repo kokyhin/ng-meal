@@ -1,9 +1,14 @@
 <div class="white-wrapper">
   <div class="order-list-wrapper">
-    <div class="box" *ngFor="let order of orders; let i = index">
-      <img class="img-responsive hidden-sm hidden-xs" src="../../../assets/img/meal-img-{{i}}.jpg" alt="img">
-      <app-order [order]="order"></app-order>
-    </div>
+    <owl-carousel
+      [options]="settings"
+      [items]="orders"
+      [carouselClasses]="['owl-theme', 'sliding']">
+      <div class="item box" *ngFor="let order of orders; let i = index">
+        <img class="img-responsive hidden-sm hidden-xs" src="../../../assets/img/meal-img-{{i}}.jpg" alt="img">
+        <app-order [order]="order"></app-order>
+      </div>
+    </owl-carousel>
   </div>
 </div>
-<app-fab-button (nextWeek)="getNextWeek()" (currWeek)="getWeek()"></app-fab-button>
+<app-fab-button class="hidden-xs" (nextWeek)="getNextWeek()" (currWeek)="getWeek()"></app-fab-button>

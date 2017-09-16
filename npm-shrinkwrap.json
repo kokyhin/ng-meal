@@ -3561,7 +3561,7 @@
     },
     "jquery": {
       "version": "3.2.1",
-      "from": "jquery@latest",
+      "from": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz",
       "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz"
     },
     "js-base64": {
@@ -4263,6 +4263,11 @@
       "from": "nested-error-stacks@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/nested-error-stacks/-/nested-error-stacks-1.0.2.tgz"
     },
+    "ngx-owl-carousel": {
+      "version": "1.0.1",
+      "from": "ngx-owl-carousel@latest",
+      "resolved": "https://registry.npmjs.org/ngx-owl-carousel/-/ngx-owl-carousel-1.0.1.tgz"
+    },
     "no-case": {
       "version": "2.3.1",
       "from": "no-case@>=2.2.0 <3.0.0",
@@ -4570,6 +4575,11 @@
       "version": "0.1.4",
       "from": "osenv@>=0.0.0 <1.0.0",
       "resolved": "https://registry.npmjs.org/osenv/-/osenv-0.1.4.tgz"
+    },
+    "owl.carousel": {
+      "version": "2.2.0",
+      "from": "owl.carousel@>=2.2.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/owl.carousel/-/owl.carousel-2.2.0.tgz"
     },
     "package-json": {
       "version": "4.0.1",
@@ -5313,8 +5323,7 @@
     "raw-loader": {
       "version": "0.5.1",
       "from": "raw-loader@>=0.5.1 <0.6.0",
-      "resolved": "https://registry.npmjs.org/raw-loader/-/raw-loader-0.5.1.tgz",
-      "dev": true
+      "resolved": "https://registry.npmjs.org/raw-loader/-/raw-loader-0.5.1.tgz"
     },
     "rc": {
       "version": "1.2.1",
@@ -5627,9 +5636,8 @@
     },
     "script-loader": {
       "version": "0.7.0",
-      "from": "script-loader@>=0.7.0 <0.8.0",
-      "resolved": "https://registry.npmjs.org/script-loader/-/script-loader-0.7.0.tgz",
-      "dev": true
+      "from": "https://registry.npmjs.org/script-loader/-/script-loader-0.7.0.tgz",
+      "resolved": "https://registry.npmjs.org/script-loader/-/script-loader-0.7.0.tgz"
     },
     "scss-tokenizer": {
       "version": "0.2.3",

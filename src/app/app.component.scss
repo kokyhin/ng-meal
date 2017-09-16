@@ -7,13 +7,9 @@
   background: url('../assets/img/login-bg.jpg') center center no-repeat;
   background-size: cover;
 
-  @include breakpoint(sm) {
-    display: block;
-    height: 100%;
-  }
-
   .main-content {
     flex: 1;
+    overflow: auto;
   }
 }
 

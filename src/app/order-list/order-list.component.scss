@@ -4,16 +4,9 @@
   display: flex;
   align-items: center;
   height: 100%;
-
-  @include breakpoint(sm) {
-    height: auto;
-    display: block;
-  }
 }
 
 .box {
-  width: 20%;
-  float: left;
   padding: 10px 25px;
 
   @include breakpoint(book) {
@@ -21,8 +14,7 @@
   }
 
   @include breakpoint(sm) {
-    width: 100%;
-    float: none;
+    padding: 0 20px;
   }
 }
 

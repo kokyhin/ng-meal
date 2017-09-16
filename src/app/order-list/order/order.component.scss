@@ -106,6 +106,7 @@ input {
     }
 
     @include breakpoint(sm) {
+      font-size: 20px;
       color: #fff;
     }
   }

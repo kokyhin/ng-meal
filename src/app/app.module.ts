@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderComponent } from './order-list/order/order.component';
+import { OwlModule } from 'ngx-owl-carousel';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { OrderComponent } from './order-list/order/order.component';
     AdminModule,
     CoreModule,
     SharedModule,
+    OwlModule,
     BrowserAnimationsModule,
   ],
   providers: [],
