@@ -28,7 +28,7 @@ router.post('/option', (req, res) => {
       orders.forEach(order => {mails.push(order.user.email)});
       if(data.first.length) { message += 'Первое на выбор: ' + data.first.toString() + '\n'; };
       if(data.second.length) { message += 'Второе на выбор: ' + data.second.toString() + '\n'; };
-      if(!data.first.length && !data.second.length ) message = 'На сегодня меню будет по умолчанию от повора';
+      if(!data.first.length && !data.second.length ) message = 'На сегодня меню будет по умолчанию от повара';
       transporter.sendMail(emails.menuChanged(mails.toString(), message, date), (err, info) => {
         if (err) { return res.status(400).send({message: `Option was created but mail isn't sent`}); }
         return res.status(200).send({message: 'Success'});
