@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "meal-backend",
-      script: "node server.js",
+      script: "server.js",
       env: {
         NODE_ENV: "production",
         PORT: 3020,
