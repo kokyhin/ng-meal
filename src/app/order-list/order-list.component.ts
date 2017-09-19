@@ -25,7 +25,7 @@ export class OrderListComponent implements OnInit {
       items: 1,
       dots: false,
       navigation: false,
-      startPosition: 3,
+      startPosition: (activeDay >= 0 && activeDay < 5) ? activeDay : 0,
       responsive: {
         0: {
           items: 1
