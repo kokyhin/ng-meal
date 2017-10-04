@@ -69,9 +69,10 @@ function populateWeek(res, req, week) {
             first: optionFound.first,
             second: optionFound.second
           }
-          day.order.first.option = optionFound.first[0];
-          day.order.second.option = optionFound.second[0];
-          return JSON.parse(JSON.stringify(day));
+          let dayCopy = JSON.parse(JSON.stringify(day));
+          dayCopy.order.first.option = optionFound.first[0];
+          dayCopy.order.second.option = optionFound.second[0];
+          return dayCopy;
         } else {
           let fridayDefault = []
           if(i == 4) {
