@@ -9,10 +9,10 @@
   <div formGroupName="first">
     <div class="input-wrapper">
       <div class="name">
-        <select class="form-control" *ngIf="order.options.first.length; else defaultFirst" value="{{order.order.first.option}}" formControlName="option">
-            <option *ngFor="let option of order.options.first;">{{option}}</option>
+        <select class="form-control" *ngIf="order.options.first.length > 1; else defaultFirst" value="{{order.order.first.option}}" formControlName="option">
+          <option *ngFor="let option of order.options.first;">{{option}}</option>
         </select>
-        <span><ng-template #defaultFirst>First</ng-template></span>
+        <span><ng-template #defaultFirst>{{order.options.first[0] || "First"}}</ng-template></span>
       </div>
       <input type="text" id="first" class="form-control custom" type="number" min="0" value="{{order.order.first.value}}" formControlName="value">
     </div>
@@ -20,10 +20,10 @@
   <div formGroupName="second">
     <div class="input-wrapper">
       <div class="name">
-        <select class="form-control" *ngIf="order.options.second.length; else defaultSecond" value="{{order.order.second.option}}" formControlName="option">
+        <select class="form-control" *ngIf="order.options.second.length > 1; else defaultSecond" value="{{order.order.second.option}}" formControlName="option">
           <option *ngFor="let option of order.options.second;">{{option}}</option>
         </select>
-        <span><ng-template #defaultSecond>Second</ng-template></span>
+        <span><ng-template #defaultSecond>{{order.options.second[0] || "Second"}}</ng-template></span>
       </div>
       <input type="text" id="second" class="form-control custom" type="number" value="{{order.order.second.value}}" formControlName="value">
     </div>

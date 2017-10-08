@@ -25,7 +25,16 @@ router.post('/option', (req, res) => {
       let mails = [];
       let message = '';
       let date = moment(data.date).locale('ru').format('ll');
-      orders.forEach(order => {mails.push(order.user.email)});
+      orders.forEach(order => {
+        mails.push(order.user.email);
+        if (order.first.option.indexOf(data.first) == -1) {
+          order.first.option = data.first[0];
+        }
+        if (order.second.option.indexOf(data.second) == -1) {
+          order.second.option = data.second[0];
+        }
+        order.save();
+      });
       if(data.first.length) { message += 'Первое на выбор: ' + data.first.toString() + '\n'; };
       if(data.second.length) { message += 'Второе на выбор: ' + data.second.toString() + '\n'; };
       if(!data.first.length && !data.second.length ) message = 'На сегодня меню будет по умолчанию от повара';
