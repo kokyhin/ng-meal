@@ -70,8 +70,8 @@ function populateWeek(res, req, week) {
             second: optionFound.second
           }
           let dayCopy = JSON.parse(JSON.stringify(day));
-          dayCopy.order.first.option = optionFound.first[0];
-          dayCopy.order.second.option = optionFound.second[0];
+          dayCopy.order.first.option = dayCopy.order.first.option ? dayCopy.order.first.option : optionFound.first[0];
+          dayCopy.order.second.option = dayCopy.order.second.option ? dayCopy.order.second.option : optionFound.second[0];
           return dayCopy;
         } else {
           day.options = {
