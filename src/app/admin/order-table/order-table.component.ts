@@ -65,13 +65,19 @@ export class OrderTableComponent implements OnInit {
       const totalDay = {
         total: 0,
         first: 0,
-        second: 0
+        second: 0,
+        debt: ''
       };
+      let debt = 0;
       for (const order of day) {
         totalDay.total += order.total;
         totalDay.first += order.first.value;
         totalDay.second += order.second.value;
+        if (!order.payed) {
+          debt += order.total;
+        }
       }
+      totalDay.debt = `${totalDay.total - debt}/${debt}`;
       totals.push(totalDay);
     }
     this.totals = totals;
@@ -84,7 +90,9 @@ export class OrderTableComponent implements OnInit {
   updatePayed(order) {
     order.payed = !order.payed;
     this.adminService.updateOrder(order).subscribe(
-      (response: Response) => {},
+      (response: Response) => {
+        this.getTotals(this.week);
+      },
       (error) => { this.notify.error(error.json().message); }
     );
   }
