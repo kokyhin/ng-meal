@@ -97,7 +97,7 @@ module.exports = {
 
     let ruleMorning = new schedule.RecurrenceRule();
     ruleMorning.dayOfWeek = [0, new schedule.Range(1, 5)];
-    ruleMorning.hour = 9;
+    ruleMorning.hour = 8;
     ruleMorning.minute = 0;
     let sendMorning = schedule.scheduleJob(ruleMorning, () =>{
       generateOrders(moment().startOf('day').toISOString());
