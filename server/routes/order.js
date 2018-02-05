@@ -137,13 +137,14 @@ router.post('/', (req, res) => {
     let mdTime = timeZone().tz("Europe/Bucharest").get('hour');
     let orderDate = new Date(order.date) / 1000;
     let currDate = moment().startOf('day').unix();
+    let dayBeforeOrder = moment(order.date).subtract(1, "days").startOf('day').unix();
     // Temporary disabled ordering food for active day
     if(orderDate <= currDate) {
       return res.status(400).send({message: 'Forbidden'});
     }
-    // if (orderDate == currDate && mdTime > 8) {
-    //   return res.status(400).send({message: 'You can not order meal after 9 AM'});
-    // }
+    if (currDate == dayBeforeOrder && mdTime > 18) {
+      return res.status(400).send({message: 'You can not order meal after 18 PM'});
+    }
     if (order._id) {
       Order.findOneAndUpdate({_id: order._id}, order, {new: true}, (err, updatedOrder) => {
         if(err) { return res.status(400).send({message: err.message});}
