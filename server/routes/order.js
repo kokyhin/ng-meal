@@ -143,7 +143,7 @@ router.post('/', (req, res) => {
       return res.status(400).send({message: 'Forbidden'});
     }
     if (currDate == dayBeforeOrder && mdTime > 18) {
-      return res.status(400).send({message: 'You can not order meal after 18 PM'});
+      return res.status(400).send({message: 'You can not order meal after 19 PM'});
     }
     if (order._id) {
       Order.findOneAndUpdate({_id: order._id}, order, {new: true}, (err, updatedOrder) => {
