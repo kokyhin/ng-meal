@@ -140,7 +140,7 @@ router.post('/', (req, res) => {
     let dayBeforeOrder = moment(order.date).subtract(1, "days").startOf('day').unix();
     // Temporary disabled ordering food for active day
     if(orderDate <= currDate) {
-      return res.status(400).send({message: 'Forbidden'});
+      return res.status(400).send({message: 'Too late to take an order'});
     }
     if (currDate == dayBeforeOrder && mdTime > 18) {
       return res.status(400).send({message: 'You can not order meal after 19 PM'});
@@ -157,6 +157,35 @@ router.post('/', (req, res) => {
         user.orders.push(newOrder);
         user.save();
         return res.status(200).send(newOrder);
+      });
+    }
+  });
+});
+
+router.get('/get-day/:day', (req, res) => {
+  const date = moment(req.params.day).startOf('day');
+  User.findOne({'_id': req.user._id}).populate({
+    path: 'orders',
+    match: {date}
+  }).exec((err, user) => {
+    if(!user) {return res.status(400).send({message: 'Usernot found'});}
+    if(err) { return res.status(400).send({message: err.message});}
+    if(user.orders.length) {
+      return res.status(200).send(user.orders[0]);
+    } else {
+      return res.status(200).send({
+        _id: null,
+        total: 0,
+        payed: false,
+        date,
+        first: {
+          option: '',
+          value: 0
+        },
+        second: {
+          option: '',
+          value: 0
+        }
       });
     }
   });

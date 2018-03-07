@@ -5,11 +5,22 @@ const order   = require('./order');
 const admin   = require('./admin');
 
 setHeader = (req, res, next) => {
+  // res.header('Access-Control-Allow-Origin', ['http://localhost:8100']);
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
   res.header('Expires', '-1');
   res.header('Pragma', 'no-cache');
-  next();
-};
+  if (req.method === 'OPTIONS') {
+    var headers = {};
+    // headers["Access-Control-Allow-Origin"] = "http://localhost:8100";
+    headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+    headers["Access-Control-Max-Age"] = '86400'; // 24 hours
+    res.writeHead(200, headers);
+    res.end();
+  } else {
+    next();
+  }};
 
 ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {

@@ -8,8 +8,12 @@
       "type": "node",
       "request": "attach",
       "name": "Attach",
+      "port": 5858,
+      "address": "localhost",
+			"sourceMaps": false,
       "localRoot": "${workspaceRoot}/server.js",
-      "restart": true
+      "restart": true,
+      "remoteRoot": null,
     }
   ]
 }
