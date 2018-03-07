@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "./node_modules/nodemon/bin/nodemon.js --debug server.js",
+    "start": "./node_modules/nodemon/bin/nodemon.js --inspect=0.0.0.0:5858 server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
