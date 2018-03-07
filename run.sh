@@ -1,6 +1,6 @@
 #!/bin/sh
 git pull
-npm install
-ng build --prod --aot
+npm install --no-progress
+ng build --prod --aot --no-progress
 pm2 startOrRestart ecosystem.config.js --update-env
 pm2 save
