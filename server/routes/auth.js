@@ -7,7 +7,7 @@ const crypto   = require('crypto');
 const nodemailer = require('nodemailer');
 const transporter = require('../helpers/mainConfig');
 const emails      = require('../helpers/mails');
-
+const jwt      = require('jsonwebtoken');
 generateRandomToken = (len) => {
   return crypto.randomBytes(Math.ceil(len/2)).toString('hex').slice(0,len);
 };
@@ -66,6 +66,23 @@ router.post('/login', passport.authenticate('local'), (req, res) => {
   });
 });
 
+router.post('/login-mobile', (req, res) => {
+  User.findOne({'username': { $regex: new RegExp("^" + req.body.username.toLowerCase(), "i") } }, (err, user) => {
+    if (!user) return res.status(400).send({message: `There is no such user ${req.body.username}`});
+    user.comparePassword(req.body.password, (err, isMatch) => {
+      if (isMatch) {
+        const userJson = user.toJSON();
+        delete userJson.password;
+        delete userJson.orders;
+        const token = jwt.sign(userJson, process.env.SECRET_KEY);
+        return res.json({token});
+      } else {
+        return res.status(400).send({message: 'Wrong Password'});
+      }
+    });
+  })
+});
+
 router.get('/logout', (req, res) => {
   req.logout();
   res.status(200).send({message: 'Logged out'});
@@ -111,7 +128,14 @@ router.get('/is-auth', (req, res) => {
   if (req.isAuthenticated()) {
     return res.status(200).send(req.user);
   } else {
-    return res.status(401).send('Unauthorized');
+    jwt.verify(req.get('Authorization'), process.env.SECRET_KEY, function(err, user) {
+      if (err) {
+        return res.status(401).send({message: 'Unauthorized'});
+      } else {
+        req.user = user;
+        return res.status(200).send(req.user);
+      }
+    });
   }
 });
 
