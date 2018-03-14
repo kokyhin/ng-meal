@@ -7,6 +7,7 @@ const jwt      = require('jsonwebtoken');
 
 setHeader = (req, res, next) => {
   res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Credentials', "true");
   res.header("Access-Control-Allow-Headers", 'Origin, Content-Type, Authorization, X-Auth-Token');
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
   res.header('Expires', '-1');
@@ -14,6 +15,7 @@ setHeader = (req, res, next) => {
   if (req.method === 'OPTIONS') {
     var headers = {};
     headers["Access-Control-Allow-Methods"] = "POST, GET, PUT, DELETE, OPTIONS";
+    headers["Access-Control-Allow-Credentials"] = 'true';
     headers["Access-Control-Max-Age"] = '86400'; // 24 hours
     res.writeHead(200, headers);
     res.end();
