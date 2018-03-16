@@ -191,4 +191,24 @@ router.get('/get-day/:day', (req, res) => {
   });
 });
 
+router.get('/get-mobile-week/:day', (req, res) => {
+  const date = moment(req.params.day).startOf('day');
+  const week = [];
+  week.push(date);
+  for (let i = 1; i < 5; i++) {
+    const latestDayinWeekArr = week[week.length -1];
+    const newDate = moment(latestDayinWeekArr, 'YYYY-MM-DD').add(1, 'days');
+    if(newDate.day() == 6) {
+      const monday = moment(date, 'YYYY-MM-DD').add(3, 'days');
+      week.push(monday);
+    } else if (newDate.day() == 0) {
+      const monday = moment(date, 'YYYY-MM-DD').add(2, 'days');
+      week.push(monday);
+    } else {
+      week.push(newDate);
+    }
+  }
+  return res.status(200).send(week);
+});
+
 module.exports = router;
