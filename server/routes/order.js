@@ -195,19 +195,19 @@ router.get('/get-mobile-week/:day', (req, res) => {
   const week = [];
   let date = moment(req.params.day).startOf('day');
   if (date.day() == 6) {
-    date = moment(date, 'YYYY-MM-DD').add(3, 'days');
-  } else if (date.day() == 0) {
     date = moment(date, 'YYYY-MM-DD').add(2, 'days');
+  } else if (date.day() == 0) {
+    date = moment(date, 'YYYY-MM-DD').add(1, 'days');
   }
   week.push(date);
   for (let i = 1; i < 5; i++) {
     const latestDayinWeekArr = week[week.length -1];
     const newDate = moment(latestDayinWeekArr, 'YYYY-MM-DD').add(1, 'days');
     if(newDate.day() == 6) {
-      const monday = moment(date, 'YYYY-MM-DD').add(3, 'days');
+      const monday = moment(newDate, 'YYYY-MM-DD').add(2, 'days');
       week.push(monday);
     } else if (newDate.day() == 0) {
-      const monday = moment(date, 'YYYY-MM-DD').add(2, 'days');
+      const monday = moment(newDate, 'YYYY-MM-DD').add(1, 'days');
       week.push(monday);
     } else {
       week.push(newDate);
