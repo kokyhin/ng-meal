@@ -163,7 +163,12 @@ router.post('/', (req, res) => {
 });
 
 router.get('/get-day/:day', (req, res) => {
-  const date = moment(req.params.day).startOf('day');
+  let date = moment(req.params.day).startOf('day');
+  if (date.day() == 6) {
+    date = moment(date, 'YYYY-MM-DD').add(2, 'days');
+  } else if (date.day() == 0) {
+    date = moment(date, 'YYYY-MM-DD').add(1, 'days');
+  }
   User.findOne({'_id': req.user._id}).populate({
     path: 'orders',
     match: {date}
