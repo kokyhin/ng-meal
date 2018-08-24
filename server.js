@@ -30,15 +30,15 @@ const mongooseOptions = {
   },
 };
 
-mongoose.connect('mongodb://localhost/ng-meal', mongooseOptions);
+mongoose.connect('mongodb://localhost/meal_ng', mongooseOptions);
 
 app.use(session({
   secret: 'NG meal',
   resave: false,
   saveUninitialized: true,
   store: new MongoStore({
-    db: 'ng-meal',
-    url: 'mongodb://localhost/ng-meal',
+    db: 'meal_ng',
+    url: 'mongodb://localhost/meal_ng',
     ttl: 12 * 60 * 60,
     mongoOptions: {
       "autoReconnect": 1,
