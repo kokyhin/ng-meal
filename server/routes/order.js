@@ -175,24 +175,31 @@ router.get('/get-day/:day', (req, res) => {
   }).exec((err, user) => {
     if(!user) {return res.status(400).send({message: 'Usernot found'});}
     if(err) { return res.status(400).send({message: err.message});}
-    if(user.orders.length) {
-      return res.status(200).send(user.orders[0]);
-    } else {
-      return res.status(200).send({
-        _id: null,
-        total: 0,
-        payed: false,
-        date,
-        first: {
-          option: '',
-          value: 0
-        },
-        second: {
-          option: '',
-          value: 0
-        }
-      });
-    }
+
+    Option.findOne({date}, (err, option) => {
+      const options = option ? {first: option.first, second: option.second} : null;
+      if(user.orders.length) {
+        const order = JSON.parse(JSON.stringify(user.orders[0]));
+        order.options = options;
+        return res.status(200).send(order);
+      } else {
+        return res.status(200).send({
+          _id: null,
+          total: 0,
+          payed: false,
+          date,
+          first: {
+            option: '',
+            value: 0
+          },
+          second: {
+            option: '',
+            value: 0
+          },
+          options
+        });
+      }
+    });
   });
 });
 
