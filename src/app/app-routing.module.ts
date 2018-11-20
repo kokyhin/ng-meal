@@ -7,10 +7,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
-  { path: '**', redirectTo: '/404' },
   { path: '', component: OrderListComponent, canActivate: [AuthGuard] },
   { path: '404', component: ErrorPageComponent, data: {message: 'Page not Found'} },
   { path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
+  { path: '**', redirectTo: '/404' },
 ];
 
 @NgModule({
