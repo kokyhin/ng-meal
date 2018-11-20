@@ -87,13 +87,13 @@ function sendLetter(content) {
 
 module.exports = {
   setschedule: () => {
-    let ruleEvening = new schedule.RecurrenceRule();
-    ruleEvening.dayOfWeek = [0, new schedule.Range(1, 5)];
-    ruleEvening.hour = 18;
-    ruleEvening.minute = 0;
-    let sendEvening = schedule.scheduleJob(ruleEvening, () =>{
-      generateOrders(moment().add(1, 'days').startOf('day').toISOString());
-    });
+    // let ruleEvening = new schedule.RecurrenceRule();
+    // ruleEvening.dayOfWeek = [0, new schedule.Range(1, 5)];
+    // ruleEvening.hour = 18;
+    // ruleEvening.minute = 0;
+    // let sendEvening = schedule.scheduleJob(ruleEvening, () =>{
+    //   generateOrders(moment().add(1, 'days').startOf('day').toISOString());
+    // });
 
     // let ruleMorning = new schedule.RecurrenceRule();
     // ruleMorning.dayOfWeek = [0, new schedule.Range(1, 5)];
