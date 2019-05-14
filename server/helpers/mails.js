@@ -20,7 +20,7 @@ module.exports = {
   schedule: (content) => {
     return {
       from: '"FusionWorks Meal 🍔" <meal@fusionworks.md>',
-      to: 'pdragushan@fusionworks.md',
+      to: 'mracila@fusionworks.md',
       subject: 'Заказы',
       text: content,
     }

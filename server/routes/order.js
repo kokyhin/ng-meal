@@ -142,8 +142,8 @@ router.post('/', (req, res) => {
     if(orderDate <= currDate) {
       return res.status(400).send({message: 'Too late to take an order'});
     }
-    if (currDate == dayBeforeOrder && mdTime > 18) {
-      return res.status(400).send({message: 'You can not order meal after 19 PM'});
+    if (currDate == dayBeforeOrder && mdTime > 17) {
+      return res.status(400).send({message: 'You can not order meal after 18 PM'});
     }
     if (order._id) {
       Order.findOneAndUpdate({_id: order._id}, order, {new: true}, (err, updatedOrder) => {
