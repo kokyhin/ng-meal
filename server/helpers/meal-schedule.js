@@ -67,13 +67,14 @@ function generateOrders(date) {
       return
     }
     sendLetter(plainText);
-    bytehand.send({
-      to: process.env.PHONE,
-      from: 'Meal',
-      text: plainText
-    }, function(error, response){
-      if(error ) console.log(error);
-    });
+    // Disable sending SMS
+    // bytehand.send({
+    //   to: process.env.PHONE,
+    //   from: 'Meal',
+    //   text: plainText
+    // }, function(error, response){
+    //   if(error ) console.log(error);
+    // });
   });
 }
 
