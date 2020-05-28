@@ -11,6 +11,7 @@ module.exports = {
         APP_URL: 'http://meal.fusionworks.md/',
         SMS_ID: '29225',
         SECRET_KEY: '6ZqFm6rdSHdWg48V',
+        EVENING_HOUR: 16
         // MAIL_ACC: 'mail',
         // PHONE: 'phone',
         // SMS_KEY: 'key'
