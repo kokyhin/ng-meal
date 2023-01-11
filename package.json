@@ -32,7 +32,7 @@
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "jquery": "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz",
-    "jsonwebtoken": "^8.2.0",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "mongoose": "^5.7.5",
